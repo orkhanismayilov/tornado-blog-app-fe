@@ -8,9 +8,7 @@
       <mat-label>Title</mat-label>
       <input matInput
              formControlName="title">
-      <mat-error>
-        {{ form.get('title').hasError('required') ? 'Title is required' : 'Enter at least 3 characters' }}
-      </mat-error>
+      <mat-error>{{ getErrorMessage('title') }}</mat-error>
     </mat-form-field>
   </div>
   <div class="form-group">
@@ -20,9 +18,7 @@
       <textarea matInput
                 formControlName="content"
                 rows="6"></textarea>
-      <mat-error>
-        {{ form.get('content').hasError('required') ? 'Content is required' : 'Enter at least 3 characters' }}
-      </mat-error>
+      <mat-error>{{ getErrorMessage('content') }}</mat-error>
     </mat-form-field>
   </div>
   <button mat-flat-button

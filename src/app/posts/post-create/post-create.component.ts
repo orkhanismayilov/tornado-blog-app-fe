@@ -14,6 +14,16 @@ export class PostCreateComponent implements OnInit {
 
   form: FormGroup;
   @ViewChild('postForm') postForm: NgForm;
+  private errors: { [control: string]: { [key: string]: string; } } = {
+    title: {
+      required: 'Title is required',
+      maxLength: 'Enter at least 3 characters',
+    },
+    content: {
+      required: 'Content is required',
+      maxLength: 'Enter at least 3 characters',
+    },
+  };
 
   private get validators() {
     return [Validators.required, Validators.minLength(3)];
@@ -39,6 +49,12 @@ export class PostCreateComponent implements OnInit {
     };
     this.postsService.addPost(post);
     this.resetForm();
+  }
+
+  getErrorMessage(controlName: string): string {
+    return this.form.get(controlName).hasError('required')
+      ? this.errors[controlName].required
+      : this.errors[controlName].maxLength;
   }
 
   private resetForm(): void {
