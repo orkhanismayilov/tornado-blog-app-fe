@@ -41,7 +41,7 @@ export class PostCreateComponent implements OnInit {
     });
   }
 
-  addPost(): void {
+  onSubmit(): void {
     if (this.form.invalid) return;
     const post: Post = {
       title: this.form.value.title,

@@ -1,17 +1,18 @@
 <h2 class="mat-title">Posts List</h2>
-<mat-accordion *ngIf="posts?.length; else noPosts"
+<mat-accordion *ngIf="(posts$ | async).length; else noPosts"
                class="example-headers-align"
                multi>
-  <mat-expansion-panel *ngFor="let post of posts">
+  <mat-expansion-panel *ngFor="let post of posts$ | async">
     <mat-expansion-panel-header>
       <mat-panel-title>{{ post.title }}</mat-panel-title>
     </mat-expansion-panel-header>
     <p>{{ post.content }}</p>
     <mat-action-row>
-      <button mat-button>
-        <mat-icon>edit</mat-icon> Edit
+      <button mat-icon-button>
+        <mat-icon>edit</mat-icon>
       </button>
-      <button mat-button>
+      <button mat-icon-button
+              (click)="onDeletePost(post._id)">
         <mat-icon color="warn">delete</mat-icon>
       </button>
     </mat-action-row>
@@ -19,5 +20,5 @@
 </mat-accordion>
 
 <ng-template #noPosts>
-  <p class="mat-body-strong text-center">There is no posts yet!</p>
+  <p class="mat-body-strong text-center">There are no posts yet!</p>
 </ng-template>

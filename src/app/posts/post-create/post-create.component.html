@@ -1,7 +1,7 @@
 <h2 class="mat-title">Create Post</h2>
 <form [formGroup]="form"
       #postForm="ngForm"
-      (ngSubmit)="addPost()">
+      (ngSubmit)="onSubmit()">
   <div class="form-group">
     <mat-form-field color="accent"
                     appearance="fill">
@@ -26,4 +26,3 @@
           color="accent"
           [disabled]="form.invalid">Add Post</button>
 </form>
-<hr>
