@@ -1,25 +1,41 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { PostsApiService } from '../api/posts-api.service';
 
 import { Post } from '../posts/interfaces/post';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
 
-  private _posts$: BehaviorSubject<Post[]> = new BehaviorSubject([]);
+  private postsSubject: BehaviorSubject<Post[]> = new BehaviorSubject([]);
+  posts$: Observable<Post[]> = this.postsSubject.asObservable();
   get posts(): Post[] {
-    return this._posts$.value;
+    return this.postsSubject.value;
   }
-  get posts$(): Observable<Post[]> {
-    return this._posts$.asObservable();
+
+  constructor(private postsApi: PostsApiService) { }
+
+  fetchPosts(): void {
+    this.postsApi.getPostsList().subscribe((postsList) => this.postsSubject.next(postsList));
   }
 
   addPost(post: Post): void {
-    this._posts$.next([
-      ...this.posts,
-      post,
-    ]);
+    this.postsApi.addPost(post).subscribe((postId) => {
+      this.postsSubject.next([
+        ...this.posts,
+        {
+          ...post,
+          _id: postId,
+        },
+      ]);
+    });
   }
+
+  deletePost(id: string): void {
+    this.postsApi.deletePost(id).subscribe(() => {
+      this.postsSubject.next(this.posts.filter(p => p._id !== id));
+    });
+  };
 
 }
