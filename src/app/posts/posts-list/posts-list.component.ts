@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Observable, takeUntil } from 'rxjs';
+import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { AbstractComponent } from 'src/app/shared/abstract.component';
 
@@ -14,11 +16,15 @@ export class PostsListComponent extends AbstractComponent implements OnInit {
 
   posts$: Observable<Post[]>;
 
-  constructor(private postsService: PostsService) {
+  constructor(
+    private postsService: PostsService,
+    public loaderService: LoaderService,
+  ) {
     super();
   }
 
   ngOnInit(): void {
+    this.loaderService.isLoading$.next(true);
     this.postsService.fetchPosts();
     this.posts$ = this.postsService.posts$.pipe(
       takeUntil(this.destroyed$),

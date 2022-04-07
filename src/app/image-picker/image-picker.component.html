@@ -1,0 +1,25 @@
+<div class="image-picker"
+     [title]="blobname ?? 'Add image'"
+     #imagePicker>
+  <div class="image-picker__image-wrapper"
+       [class.image-picker__image-wrapper--picked]="thumbnail"
+       (click)="imageInput.click()">
+    <mat-icon *ngIf="!thumbnail"
+              class="image-picker__icon">add</mat-icon>
+    <img *ngIf="thumbnail"
+         class="image-picker__thumbnail"
+         [src]="thumbnail"
+         [attr.alt]="postTitle">
+    <button *ngIf="thumbnail"
+            mat-icon-button
+            class="image-picker__btn-remove"
+            (click)="onRemoveImage($event)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <span *ngIf="blobname"
+        class="image-picker__blobname">{{blobname}}</span>
+</div>
+<input type="file"
+       #imageInput
+       (change)="onImagePicked($event)">
