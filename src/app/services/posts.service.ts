@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { PostsApiService } from '../api/posts-api.service';
 
+import { PostsApiService } from '../api/posts-api.service';
 import { Post } from '../posts/interfaces/post';
+import { LoaderService } from './loader.service';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -14,14 +16,22 @@ export class PostsService {
     return this.postsSubject.value;
   }
 
-  constructor(private postsApi: PostsApiService) { }
+  constructor(
+    private postsApi: PostsApiService,
+    private router: Router,
+    private loaderService: LoaderService,
+  ) { }
 
   fetchPosts(): void {
-    this.postsApi.getPostsList().subscribe((postsList) => this.postsSubject.next(postsList));
+    this.postsApi.getPostsList().subscribe((postsList) => {
+      this.loaderService.isLoading$.next(false);
+      this.postsSubject.next(postsList);
+    });
   }
 
   addPost(post: Post): void {
     this.postsApi.addPost(post).subscribe((postId) => {
+      this.loaderService.isLoading$.next(false);
       this.postsSubject.next([
         ...this.posts,
         {
@@ -29,6 +39,14 @@ export class PostsService {
           _id: postId,
         },
       ]);
+      this.navigateToHome();
+    });
+  }
+
+  patchPost(post: Post): void {
+    this.postsApi.patchPost(post).subscribe(() => {
+      this.loaderService.isLoading$.next(false);
+      this.navigateToHome();
     });
   }
 
@@ -37,5 +55,9 @@ export class PostsService {
       this.postsSubject.next(this.posts.filter(p => p._id !== id));
     });
   };
+
+  private navigateToHome(): void {
+    this.router.navigate(['/']);
+  }
 
 }

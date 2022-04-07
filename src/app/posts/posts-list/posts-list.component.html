@@ -1,24 +1,29 @@
 <h2 class="mat-title">Posts List</h2>
-<mat-accordion *ngIf="(posts$ | async).length; else noPosts"
-               class="example-headers-align"
-               multi>
-  <mat-expansion-panel *ngFor="let post of posts$ | async">
-    <mat-expansion-panel-header>
-      <mat-panel-title>{{ post.title }}</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ post.content }}</p>
-    <mat-action-row>
-      <button mat-icon-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button
-              (click)="onDeletePost(post._id)">
-        <mat-icon color="warn">delete</mat-icon>
-      </button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+<mat-spinner *ngIf="loaderService.isLoading$ | async; else loaded"
+             class="center-x"></mat-spinner>
+<ng-template #loaded>
+  <mat-accordion *ngIf="(posts$ | async).length; else noPosts"
+                 class="example-headers-align"
+                 multi>
+    <mat-expansion-panel *ngFor="let post of posts$ | async">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{ post.title }}</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>{{ post.content }}</p>
+      <mat-action-row>
+        <a mat-icon-button
+           [routerLink]="['/edit', post._id]">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button mat-icon-button
+                (click)="onDeletePost(post._id)">
+          <mat-icon color="warn">delete</mat-icon>
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
 
-<ng-template #noPosts>
-  <p class="mat-body-strong text-center">There are no posts yet!</p>
+  <ng-template #noPosts>
+    <p class="mat-body-strong text-center">There are no posts yet!</p>
+  </ng-template>
 </ng-template>

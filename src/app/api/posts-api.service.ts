@@ -6,23 +6,28 @@ import { Post } from '../posts/interfaces/post';
 @Injectable({ providedIn: 'root' })
 export class PostsApiService {
 
-  private url = 'http://localhost:3000';
+  private url = 'http://localhost:3000/api/posts';
 
   constructor(private http: HttpClient) { }
 
   getPostsList(): Observable<Post[]> {
-    const path = 'api/posts';
-    return this.http.get<Post[]>(`${this.url}/${path}`);
+    return this.http.get<Post[]>(this.url);
+  }
+
+  getPost(id: string): Observable<Post> {
+    return this.http.get<Post>(`${this.url}/${id}`);
   }
 
   addPost(post: Post): Observable<string> {
-    const path = 'api/posts';
-    return this.http.post<string>(`${this.url}/${path}`, post);
+    return this.http.post<string>(this.url, post);
+  }
+
+  patchPost(post: Post): Observable<void> {
+    return this.http.patch<void>(`${this.url}/${post._id}`, post);
   }
 
   deletePost(id: string): Observable<void> {
-    const path = 'api/posts';
-    return this.http.delete<void>(`${this.url}/${path}/${id}`);
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 
 }
