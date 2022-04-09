@@ -18,6 +18,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class ImagePickerComponent {
 
   @Input() postTitle: string;
+  @Input() validMimeType: boolean = false;
   @Output() imagePicked: EventEmitter<File> = new EventEmitter();
 
   @ViewChild('imagePicker') imagePicker: ElementRef<HTMLElement>;

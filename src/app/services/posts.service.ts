@@ -25,19 +25,19 @@ export class PostsService {
   fetchPosts(): void {
     this.postsApi.getPostsList().subscribe((postsList) => {
       this.loaderService.isLoading$.next(false);
-      this.postsSubject.next(postsList);
+      this.postsSubject.next(postsList.map(post => ({
+        ...post,
+        imagePath: `http://localhost:3000${post.imagePath}`,
+      })));
     });
   }
 
   addPost(post: Post): void {
-    this.postsApi.addPost(post).subscribe((postId) => {
+    this.postsApi.addPost(post).subscribe((post) => {
       this.loaderService.isLoading$.next(false);
       this.postsSubject.next([
         ...this.posts,
-        {
-          ...post,
-          _id: postId,
-        },
+        post,
       ]);
       this.navigateToHome();
     });

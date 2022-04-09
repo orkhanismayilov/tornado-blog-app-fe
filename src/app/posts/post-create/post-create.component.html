@@ -24,7 +24,9 @@
       </mat-form-field>
     </div>
     <hr>
-    <app-image-picker [postTitle]="form.value.title"></app-image-picker>
+    <app-image-picker [postTitle]="form.value.title"
+                      [validMimeType]="form.get('image').valid"
+                      (imagePicked)="onImagePicked($event)"></app-image-picker>
     <button mat-flat-button
             type="submit"
             color="accent"

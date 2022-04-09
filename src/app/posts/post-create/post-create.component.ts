@@ -8,6 +8,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
 
 import { Post } from '../interfaces/post';
+import { mimeTipeValidator } from '../validators/mime-type.validator';
 
 enum Modes {
   Create = 'create',
@@ -56,6 +57,7 @@ export class PostCreateComponent implements OnInit {
     this.form = this.fb.group({
       title: [null, this.validators],
       content: [null, this.validators],
+      image: [null, [Validators.required], [mimeTipeValidator]],
     });
 
     this.route.paramMap.pipe(
@@ -67,12 +69,8 @@ export class PostCreateComponent implements OnInit {
   onSubmit(): void {
     if (this.form.invalid) return;
     if (this.mode === Modes.Create) {
-      const post: Post = {
-        title: this.form.value.title,
-        content: this.form.value.content,
-      };
       this.loaderService.isLoading$.next(true);
-      this.postsService.addPost(post);
+      this.postsService.addPost(this.form.value);
     } else {
       this.editingPost = {
         ...this.editingPost,
@@ -81,6 +79,10 @@ export class PostCreateComponent implements OnInit {
       this.loaderService.isLoading$.next(true);
       this.postsService.patchPost(this.editingPost);
     }
+  }
+
+  onImagePicked(image: File): void {
+    this.form.patchValue({ image });
   }
 
   getErrorMessage(controlName: string): string {
