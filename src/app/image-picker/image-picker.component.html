@@ -2,11 +2,11 @@
      [title]="blobname ?? 'Add image'"
      #imagePicker>
   <div class="image-picker__image-wrapper"
-       [class.image-picker__image-wrapper--picked]="thumbnail"
+       [class.image-picker__image-wrapper--picked]="thumbnail && validMimeType"
        (click)="imageInput.click()">
-    <mat-icon *ngIf="!thumbnail"
+    <mat-icon *ngIf="!thumbnail || !validMimeType"
               class="image-picker__icon">add</mat-icon>
-    <img *ngIf="thumbnail"
+    <img *ngIf="thumbnail && validMimeType"
          class="image-picker__thumbnail"
          [src]="thumbnail"
          [attr.alt]="postTitle">
