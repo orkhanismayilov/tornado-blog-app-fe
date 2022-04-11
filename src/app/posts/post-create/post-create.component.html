@@ -33,8 +33,7 @@
               type="submit"
               color="accent"
               [disabled]="form.invalid">{{ mode === Modes.Create ? 'Add' : 'Save' }} Post</button>
-      <button *ngIf="mode === Modes.Edit"
-              mat-flat-button
+      <button mat-flat-button
               color="warn"
               (click)="onCancel()"
               type="button">Cancel</button>
