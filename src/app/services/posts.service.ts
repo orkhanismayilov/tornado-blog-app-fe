@@ -27,7 +27,7 @@ export class PostsService {
       this.loaderService.isLoading$.next(false);
       this.postsSubject.next(postsList.map(post => ({
         ...post,
-        imagePath: `http://localhost:3000${post.imagePath}`,
+        imagePath: post.imagePath,
       })));
     });
   }
