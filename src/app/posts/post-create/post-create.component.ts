@@ -101,7 +101,7 @@ export class PostCreateComponent implements OnInit {
       this.editingPost = post;
       this.form.setValue({
         title: post.title,
-        image: `http://localhost:3000${post.imagePath}`,
+        image: post.imagePath,
         content: post.content,
       });
       return;
