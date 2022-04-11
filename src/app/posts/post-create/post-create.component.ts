@@ -81,6 +81,10 @@ export class PostCreateComponent implements OnInit {
     }
   }
 
+  onCancel(): void {
+    this.router.navigate(['/']);
+  }
+
   onImagePicked(image: File): void {
     this.form.patchValue({ image });
   }
@@ -97,6 +101,7 @@ export class PostCreateComponent implements OnInit {
       this.editingPost = post;
       this.form.setValue({
         title: post.title,
+        image: `http://localhost:3000${post.imagePath}`,
         content: post.content,
       });
       return;
