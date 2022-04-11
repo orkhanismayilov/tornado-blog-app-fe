@@ -15,11 +15,11 @@
       <p>{{ post.content }}</p>
       <mat-action-row>
         <a mat-icon-button
-           [routerLink]="['/edit', post._id]">
+           [routerLink]="['/edit', post.id]">
           <mat-icon>edit</mat-icon>
         </a>
         <button mat-icon-button
-                (click)="onDeletePost(post._id)">
+                (click)="onDeletePost(post.id)">
           <mat-icon color="warn">delete</mat-icon>
         </button>
       </mat-action-row>

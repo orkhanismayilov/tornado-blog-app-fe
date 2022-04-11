@@ -52,7 +52,7 @@ export class PostsService {
 
   deletePost(id: string): void {
     this.postsApi.deletePost(id).subscribe(() => {
-      this.postsSubject.next(this.posts.filter(p => p._id !== id));
+      this.postsSubject.next(this.posts.filter(p => p.id !== id));
     });
   };
 

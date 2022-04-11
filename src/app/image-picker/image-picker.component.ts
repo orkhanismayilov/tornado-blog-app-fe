@@ -19,6 +19,12 @@ export class ImagePickerComponent {
 
   @Input() postTitle: string;
   @Input() validMimeType: boolean = false;
+  @Input() set postImage(path: string) {
+    if (path) {
+      this.thumbnail = path;
+      this.blobname = path.split('/').reverse()[0];
+    }
+  }
   @Output() imagePicked: EventEmitter<File> = new EventEmitter();
 
   @ViewChild('imagePicker') imagePicker: ElementRef<HTMLElement>;

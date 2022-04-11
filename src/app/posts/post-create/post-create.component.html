@@ -26,10 +26,18 @@
     <hr>
     <app-image-picker [postTitle]="form.value.title"
                       [validMimeType]="form.get('image').valid"
+                      [postImage]="form.get('image').value"
                       (imagePicked)="onImagePicked($event)"></app-image-picker>
-    <button mat-flat-button
-            type="submit"
-            color="accent"
-            [disabled]="form.invalid">{{ mode === Modes.Create ? 'Add' : 'Save' }} Post</button>
+    <div class="post-create-actions">
+      <button mat-flat-button
+              type="submit"
+              color="accent"
+              [disabled]="form.invalid">{{ mode === Modes.Create ? 'Add' : 'Save' }} Post</button>
+      <button *ngIf="mode === Modes.Edit"
+              mat-flat-button
+              color="warn"
+              (click)="onCancel()"
+              type="button">Cancel</button>
+    </div>
   </form>
 </ng-template>

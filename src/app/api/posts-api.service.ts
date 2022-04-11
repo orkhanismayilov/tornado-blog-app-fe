@@ -31,7 +31,7 @@ export class PostsApiService {
   }
 
   patchPost(post: Post): Observable<void> {
-    return this.http.patch<void>(`${this.url}/${post._id}`, post);
+    return this.http.patch<void>(`${this.url}/${post.id}`, post);
   }
 
   deletePost(id: string): Observable<void> {
