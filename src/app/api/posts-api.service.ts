@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
-import { Post } from '../posts/interfaces/post';
+
+import { Post, PostsListResponse } from '../posts/interfaces/post';
 
 @Injectable({ providedIn: 'root' })
 export class PostsApiService {
@@ -10,8 +12,9 @@ export class PostsApiService {
 
   constructor(private http: HttpClient) { }
 
-  getPostsList(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.url);
+  getPostsList(limit: number = 5, page: number = 1): Observable<PostsListResponse> {
+    const params = { limit, page }
+    return this.http.get<PostsListResponse>(this.url, { params });
   }
 
   getPost(id: string): Observable<Post> {

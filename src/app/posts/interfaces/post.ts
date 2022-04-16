@@ -6,3 +6,8 @@ export interface Post {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export interface PostsListResponse {
+  data: Post[];
+  total: number;
+};
