@@ -2,6 +2,12 @@
 <mat-spinner *ngIf="loaderService.isLoading$ | async; else loaded"
              class="center-x"></mat-spinner>
 <ng-template #loaded>
+  <mat-paginator *ngIf="(posts$ | async).length"
+                 [pageSize]="paginatorConfig.limit"
+                 [pageSizeOptions]="paginatorConfig.limitOptions"
+                 [length]="paginatorConfig.total"
+                 (page)="onPageNavigate($event)"
+                 color="accent"></mat-paginator>
   <mat-accordion *ngIf="(posts$ | async).length; else noPosts"
                  class="example-headers-align"
                  multi>
@@ -9,10 +15,12 @@
       <mat-expansion-panel-header>
         <mat-panel-title>{{ post.title }}</mat-panel-title>
       </mat-expansion-panel-header>
-      <img class="post-image"
-           [src]="post.imagePath"
-           [alt]="post.title">
-      <p>{{ post.content }}</p>
+      <ng-template matExpansionPanelContent>
+        <img class="post-image"
+             [src]="post.imagePath"
+             [alt]="post.title">
+        <p>{{ post.content }}</p>
+      </ng-template>
       <mat-action-row>
         <a mat-icon-button
            [routerLink]="['/edit', post.id]">
