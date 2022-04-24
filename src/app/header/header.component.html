@@ -1,13 +1,28 @@
 <mat-toolbar color="primary">
-  <span>
-    <a class="home-link"
-       routerLink="/">{{ title }}</a>
+  <span class="brand">
+    <a class="brand__link"
+       routerLink="/">
+      <img class="brand__logo"
+           src="/assets/logo/logo-white.svg"
+           alt="Tornado Blog">
+      <span class="brand__text">{{title}}</span>
+    </a>
   </span>
   <ul class="menu">
     <li class="menu__item">
       <a class="menu__link"
          routerLink="/create"
          routerLinkActive="menu__link--active">New Post</a>
+    </li>
+    <li class="menu__separator"
+        role="separator"></li>
+    <li class="menu__item">
+      <a class="menu__link"
+         routerLink="/login"
+         routerLinkActive="menu__link--active">
+        <mat-icon class="icon-24">person_outline</mat-icon>
+        Login
+      </a>
     </li>
   </ul>
 </mat-toolbar>

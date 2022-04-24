@@ -4,7 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Observable, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
-import { AbstractComponent } from 'src/app/shared/abstract.component';
+import { AbstractComponent } from 'src/app/shared/components/abstract.component';
 
 import { PaginatorConfig } from '../interfaces/paginator';
 import { Post } from '../interfaces/post';

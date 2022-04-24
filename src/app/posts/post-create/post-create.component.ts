@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { filter, switchMap } from 'rxjs';
 import { PostsApiService } from 'src/app/api/posts-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
+import { FormErrors } from 'src/app/shared/interfaces/form-errors';
 
 import { Post } from '../interfaces/post';
 import { mimeTipeValidator } from '../validators/mime-type.validator';
@@ -26,7 +27,7 @@ export class PostCreateComponent implements OnInit {
 
   form: FormGroup;
 
-  private errors: { [control: string]: { [key: string]: string; } } = {
+  private errors: FormErrors = {
     title: {
       required: 'Title is required',
       maxLength: 'Enter at least 3 characters',
@@ -89,10 +90,9 @@ export class PostCreateComponent implements OnInit {
     this.form.patchValue({ image });
   }
 
-  getErrorMessage(controlName: string): string {
-    return this.form.get(controlName).hasError('required')
-      ? this.errors[controlName].required
-      : this.errors[controlName].maxLength;
+  getErrorMessage(fieldName: string): string {
+    const errorKey = Object.keys(this.form.get(fieldName).errors)[0];
+    return this.errors[fieldName][errorKey];
   }
 
   private setMode(post: Post): void {

@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Orelega+One&display=swap');
+@import url('./spacing.less');
 
 html,
 body {
@@ -12,6 +14,25 @@ body {
 
 a {
   text-decoration: none;
+}
+
+main {
+  padding: 3rem 0;
+}
+
+.mat-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+
+  @media screen and (min-width: 1280px) {
+    max-width: 1200px;
+  }
 }
 
 .text-center {
@@ -28,4 +49,73 @@ mat-form-field {
 
 .form-group {
   margin-bottom: .5rem;
+}
+
+.auth {
+  position: fixed !important;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem !important;
+  transform: translate(-50%, -50%);
+
+  mat-card-title {
+    text-align: center;
+  }
+
+  &__home-link {
+    display: block;
+    width: 64px;
+    margin: 0 auto 2rem;
+  }
+
+  &__logo {
+    width: 100%;
+  }
+
+  &__form {
+    margin-top: 2rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    text-align: center;
+
+    li {
+      padding: 0 1rem;
+
+      &:not(:last-child) {
+        border-right: 1px solid #ffffff;
+      }
+    }
+
+    a {
+      color: #cccccc;
+      font-size: .75rem;
+      text-decoration: underline;
+      transition: color .2s;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.generate-icon-sizes(16);
+
+.generate-icon-sizes(@size) when (@size =< 64) {
+  .icon-@{size} {
+    width: (@size * 1px) !important;
+    height: (@size * 1px) !important;
+    font-size: (@size * 1px) !important;
+    line-height: 1 !important;
+  }
+
+  .generate-icon-sizes((@size + 8));
 }

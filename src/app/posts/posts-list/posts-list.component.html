@@ -1,40 +1,45 @@
-<h2 class="mat-title">Posts List</h2>
-<mat-spinner *ngIf="loaderService.isLoading$ | async; else loaded"
-             class="center-x"></mat-spinner>
-<ng-template #loaded>
-  <mat-paginator *ngIf="(posts$ | async).length"
-                 [pageSize]="paginatorConfig.limit"
-                 [pageSizeOptions]="paginatorConfig.limitOptions"
-                 [length]="paginatorConfig.total"
-                 (page)="onPageNavigate($event)"
-                 color="accent"></mat-paginator>
-  <mat-accordion *ngIf="(posts$ | async).length; else noPosts"
-                 class="example-headers-align"
-                 multi>
-    <mat-expansion-panel *ngFor="let post of posts$ | async">
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{ post.title }}</mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <img class="post-image"
-             [src]="post.imagePath"
-             [alt]="post.title">
-        <p>{{ post.content }}</p>
-      </ng-template>
-      <mat-action-row>
-        <a mat-icon-button
-           [routerLink]="['/edit', post.id]">
-          <mat-icon>edit</mat-icon>
-        </a>
-        <button mat-icon-button
-                (click)="onDeletePost(post.id)">
-          <mat-icon color="warn">delete</mat-icon>
-        </button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion>
+<app-header></app-header>
+<main>
+  <div class="container">
+    <h2 class="mat-title">Posts List</h2>
+    <mat-spinner *ngIf="loaderService.isLoading$ | async; else loaded"
+                 class="center-x"></mat-spinner>
+    <ng-template #loaded>
+      <mat-paginator *ngIf="(posts$ | async).length"
+                     [pageSize]="paginatorConfig.limit"
+                     [pageSizeOptions]="paginatorConfig.limitOptions"
+                     [length]="paginatorConfig.total"
+                     (page)="onPageNavigate($event)"
+                     color="accent"></mat-paginator>
+      <mat-accordion *ngIf="(posts$ | async).length; else noPosts"
+                     class="example-headers-align"
+                     multi>
+        <mat-expansion-panel *ngFor="let post of posts$ | async">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ post.title }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <img class="post-image"
+                 [src]="post.imagePath"
+                 [alt]="post.title">
+            <p>{{ post.content }}</p>
+          </ng-template>
+          <mat-action-row>
+            <a mat-icon-button
+               [routerLink]="['/edit', post.id]">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button
+                    (click)="onDeletePost(post.id)">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
 
-  <ng-template #noPosts>
-    <p class="mat-body-strong text-center">There are no posts yet!</p>
-  </ng-template>
-</ng-template>
+      <ng-template #noPosts>
+        <p class="mat-body-strong text-center">There are no posts yet!</p>
+      </ng-template>
+    </ng-template>
+  </div>
+</main>

@@ -1,0 +1,77 @@
+<div class="bg-overlay"></div>
+<mat-card class="auth">
+  <a class="auth__home-link"
+     routerLink="/">
+    <img class="auth__logo"
+         src="/assets/logo/logo-accent.svg"
+         alt="Tornado Blog">
+  </a>
+  <mat-card-title>SIGN UP</mat-card-title>
+  <form [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        class="auth__form">
+    <div class="form-group">
+      <div class="form-group">
+        <mat-form-field color="accent"
+                        appearance="fill">
+          <mat-label>First name</mat-label>
+          <input matInput
+                 formControlName="firstName"
+                 type="text">
+          <mat-error>{{ getErrorMessage('firstName') }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field color="accent"
+                        appearance="fill">
+          <mat-label>Last name</mat-label>
+          <input matInput
+                 formControlName="lastName"
+                 type="text">
+          <mat-error>{{ getErrorMessage('lastName') }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field color="accent"
+                        appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput
+                 formControlName="email"
+                 type="email">
+          <mat-icon matSuffix>alternate_email</mat-icon>
+          <mat-error>{{ getErrorMessage('email') }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field color="accent"
+                        appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput
+                 formControlName="password"
+                 type="password">
+          <mat-icon matSuffix>key</mat-icon>
+          <mat-error>{{ getErrorMessage('password') }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="text-center mb-3">
+      <button mat-flat-button
+              color="accent"
+              type="submit">
+        Sign Up
+      </button>
+    </div>
+    <ul class="auth__actions">
+      <li>
+        <a routerLink="/">Go Home</a>
+      </li>
+      <li>
+        <a routerLink="/login">Login</a>
+      </li>
+    </ul>
+  </form>
+</mat-card>
+
+<form [formGroup]="form">
+
+</form>
