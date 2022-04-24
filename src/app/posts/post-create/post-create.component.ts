@@ -27,14 +27,14 @@ export class PostCreateComponent implements OnInit {
 
   form: FormGroup;
 
-  private errors: FormErrors = {
+  private errorsMap: FormErrors = {
     title: {
       required: 'Title is required',
-      maxLength: 'Enter at least 3 characters',
+      maxlength: 'Enter at least 3 characters',
     },
     content: {
       required: 'Content is required',
-      maxLength: 'Enter at least 3 characters',
+      maxlength: 'Enter at least 3 characters',
     },
   };
 
@@ -91,8 +91,8 @@ export class PostCreateComponent implements OnInit {
   }
 
   getErrorMessage(fieldName: string): string {
-    const errorKey = Object.keys(this.form.get(fieldName).errors)[0];
-    return this.errors[fieldName][errorKey];
+    const errorKey = Object.keys(this.form.get(fieldName).errors ?? {})[0];
+    return this.errorsMap[fieldName][errorKey];
   }
 
   private setMode(post: Post): void {
