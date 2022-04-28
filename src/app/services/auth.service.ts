@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { AuthData, AuthResponse, SignUpData } from '../auth/interfaces/user';
 import { LoaderService } from './loader.service';
@@ -10,9 +11,18 @@ import { LoaderService } from './loader.service';
 export class AuthService {
 
   private url = 'http://localhost:3000/api/auth';
+  private tokenStorageKey = 'tornado_auth_token';
+  get token(): string {
+    const token = localStorage.getItem(this.tokenStorageKey);
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+    return token;
+  }
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private loaderService: LoaderService,
   ) { }
 
@@ -21,7 +31,16 @@ export class AuthService {
   }
 
   login(data: AuthData): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.url}/login`, data);
+    return this.http.post<AuthResponse>(`${this.url}/login`, data).pipe(
+      map(({ token }) => {
+        this.setToken(token);
+        return null;
+      }),
+    );
+  }
+
+  private setToken(token: string): void {
+    localStorage.setItem(this.tokenStorageKey, token);
   }
 
 }
