@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
 import { ImagePickerComponent } from './image-picker/image-picker.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import { PostsListComponent } from './posts/posts-list/posts-list.component';
     MatPaginatorModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
