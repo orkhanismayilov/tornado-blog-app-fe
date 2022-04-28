@@ -18,8 +18,8 @@ export class PostsService {
   }
 
   private paginatorConfigSubject: BehaviorSubject<PaginatorConfig> = new BehaviorSubject({
-    limit: 5,
-    limitOptions: [2, 5, 10],
+    limit: 20,
+    limitOptions: [5, 10, 20, 50],
     currentPage: 1,
     total: 0,
   });
@@ -40,7 +40,7 @@ export class PostsService {
     private loaderService: LoaderService,
   ) { }
 
-  fetchPosts(limit: number = 5, page: number = 1): void {
+  fetchPosts(limit: number = this.paginatorConfig.limit, page: number = 1): void {
     this.paginatorConfig = { limit, currentPage: page };
     this.postsApi.getPostsList(limit, page).subscribe((res: PostsListResponse) => {
       this.loaderService.isLoading$.next(false);
@@ -56,18 +56,16 @@ export class PostsService {
   }
 
   addPost(post: Post): void {
-    this.postsApi.addPost(post).subscribe((post) => {
+    const data = this.prepareData(post);
+    this.postsApi.addPost(data).subscribe(() => {
       this.loaderService.isLoading$.next(false);
-      this.postsSubject.next([
-        ...this.posts,
-        post,
-      ]);
       this.navigateToHome();
     });
   }
 
   patchPost(post: Post): void {
-    this.postsApi.patchPost(post).subscribe(() => {
+    const data = this.prepareData(post);
+    this.postsApi.patchPost(post.id, data).subscribe(() => {
       this.loaderService.isLoading$.next(false);
       this.navigateToHome();
     });
@@ -84,6 +82,25 @@ export class PostsService {
 
   private navigateToHome(): void {
     this.router.navigate(['/']);
+  }
+
+  private prepareData(post: Post): Post | FormData {
+    let data: Post | FormData = post;
+    if (post.image instanceof File) {
+      data = new FormData();
+      for (const [key, value] of Object.entries(post)) {
+        if (key === 'image') {
+          data.append(key, value, this.normalizeFileName(post.title));
+          break;
+        }
+        data.append(key, value);
+      }
+    }
+    return data;
+  }
+
+  private normalizeFileName(title: string): string {
+    return title.toLowerCase().replace(/(\s|\/|\\)+/gm, '-');
   }
 
 }

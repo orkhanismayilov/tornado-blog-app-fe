@@ -21,28 +21,16 @@ export class PostsApiService {
     return this.http.get<Post>(`${this.url}/${id}`);
   }
 
-  addPost(post: Post): Observable<Post> {
-    const data = new FormData();
-    for (const [key, value] of Object.entries(post)) {
-      if (key === 'image') {
-        data.append(key, value, this.normalizeFileName(post.title));
-        break;
-      }
-      data.append(key, value);
-    }
+  addPost(data: Post | FormData): Observable<Post> {
     return this.http.post<Post>(this.url, data);
   }
 
-  patchPost(post: Post): Observable<void> {
-    return this.http.patch<void>(`${this.url}/${post.id}`, post);
+  patchPost(id: string, data: Post | FormData): Observable<void> {
+    return this.http.patch<void>(`${this.url}/${id}`, data);
   }
 
   deletePost(id: string): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);
-  }
-
-  private normalizeFileName(title: string): string {
-    return title.toLowerCase().replace(/(\s|\/|\\)+/gm, '-');
   }
 
 }
