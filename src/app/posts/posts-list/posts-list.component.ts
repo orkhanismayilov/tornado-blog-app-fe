@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { Observable, takeUntil } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { AbstractComponent } from 'src/app/shared/components/abstract.component';
@@ -19,8 +20,13 @@ export class PostsListComponent extends AbstractComponent implements OnInit {
   posts$: Observable<Post[]>;
   paginatorConfig: PaginatorConfig;
 
+  get isAuthorized(): boolean {
+    return this.authService.isAuthorized;
+  }
+
   constructor(
     private postsService: PostsService,
+    private authService: AuthService,
     public loaderService: LoaderService,
   ) {
     super();

@@ -24,7 +24,7 @@
                  [alt]="post.title">
             <p>{{ post.content }}</p>
           </ng-template>
-          <mat-action-row>
+          <mat-action-row *ngIf="isAuthorized">
             <a mat-icon-button
                [routerLink]="['/edit', post.id]">
               <mat-icon>edit</mat-icon>
