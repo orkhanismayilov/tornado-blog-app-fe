@@ -14,10 +14,10 @@ export class AuthService {
   private tokenStorageKey = 'tornado_auth_token';
   get token(): string {
     const token = localStorage.getItem(this.tokenStorageKey);
-    if (!token) {
-      this.router.navigate(['/login']);
-    }
-    return token;
+    return token || null;
+  }
+  get isAuthorized(): boolean {
+    return !!this.token;
   }
 
   constructor(
@@ -37,6 +37,11 @@ export class AuthService {
         return null;
       }),
     );
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.tokenStorageKey);
+    this.router.navigate(['/']);
   }
 
   private setToken(token: string): void {
