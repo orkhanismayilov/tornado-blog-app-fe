@@ -5,6 +5,7 @@ import { FormErrors } from 'src/app/shared/interfaces/form-errors';
 
 import { AbstractAuthComponent } from '../abstract-auth-component.spec';
 import { Fieldsets } from '../interfaces/fieldsets';
+import { SignUpData } from '../interfaces/user';
 
 @Component({
   selector: 'app-signup',
@@ -39,7 +40,9 @@ export class SignupComponent extends AbstractAuthComponent {
   };
 
   onSubmit(): void {
-
+    if (this.form.invalid) { return; }
+    const data: SignUpData = this.form.value;
+    this.authService.signUp(data).subscribe();
   }
 
 }

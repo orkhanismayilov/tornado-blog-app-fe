@@ -4,6 +4,7 @@ import { FormErrors } from 'src/app/shared/interfaces/form-errors';
 
 import { AbstractAuthComponent } from '../abstract-auth-component.spec';
 import { Fieldsets } from '../interfaces/fieldsets';
+import { AuthData } from '../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,9 @@ export class LoginComponent extends AbstractAuthComponent {
   };
 
   onSubmit(): void {
-
+    if (this.form.invalid) { return; }
+    const data: AuthData = this.form.value;
+    this.authService.login(data).subscribe(console.log);
   }
 
 }

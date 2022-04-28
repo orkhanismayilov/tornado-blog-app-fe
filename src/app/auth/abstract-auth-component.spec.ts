@@ -1,7 +1,8 @@
 import { Directive, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormErrors } from '../shared/interfaces/form-errors';
+import { AuthService } from '../services/auth.service';
 
+import { FormErrors } from '../shared/interfaces/form-errors';
 import { Fieldsets } from './interfaces/fieldsets';
 
 @Directive()
@@ -25,7 +26,10 @@ export abstract class AbstractAuthComponent implements OnInit {
     ];
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    protected authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
     if (this.fieldsets) {
@@ -36,7 +40,7 @@ export abstract class AbstractAuthComponent implements OnInit {
   abstract onSubmit(): void;
 
   getErrorMessage(fieldName: string): string {
-    const errorKey = Object.keys(this.form.get(fieldName).errors)[0];
+    const errorKey = Object.keys(this.form.get(fieldName).errors ?? {})[0];
     return this.errorsMap[fieldName][errorKey];
   }
 
