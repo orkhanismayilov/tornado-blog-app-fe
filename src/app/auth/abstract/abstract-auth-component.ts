@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { FormErrors } from 'src/app/shared/interfaces/form-errors';
 
 import { Fieldsets } from '../interfaces/fieldsets';
@@ -32,6 +33,7 @@ export abstract class AbstractAuthComponent implements OnInit {
     private fb: FormBuilder,
     protected authService: AuthService,
     protected router: Router,
+    public loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {

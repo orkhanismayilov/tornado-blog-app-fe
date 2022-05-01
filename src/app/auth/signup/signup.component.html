@@ -64,8 +64,15 @@
       <div class="text-center mb-3">
         <button mat-flat-button
                 color="accent"
-                type="submit">
-          Sign Up
+                type="submit"
+                [disabled]="loaderService.isLoading$ | async">
+          <mat-spinner *ngIf="loaderService.isLoading$ | async"
+                       class="me-2"
+                       diameter="20"
+                       color="accent"></mat-spinner>
+          <mat-icon *ngIf="!(loaderService.isLoading$ | async)"
+                    class="me-2">person_add_alt</mat-icon>
+          <span>Sign Up</span>
         </button>
       </div>
       <ul class="auth__actions">

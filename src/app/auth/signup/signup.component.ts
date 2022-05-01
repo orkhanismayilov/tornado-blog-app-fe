@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 
 import { FormErrors } from 'src/app/shared/interfaces/form-errors';
 
-import { AbstractAuthComponent } from '../abstract/abstract-auth-component.spec';
+import { AbstractAuthComponent } from '../abstract/abstract-auth-component';
 import { Fieldsets } from '../interfaces/fieldsets';
 import { SignUpData } from '../interfaces/user';
 
@@ -43,9 +43,14 @@ export class SignupComponent extends AbstractAuthComponent {
   };
 
   onSubmit(): void {
-    if (this.form.invalid) { return; }
+    if (this.form.invalid || this.loaderService.isLoading$.value) { return; }
+    this.loaderService.isLoading$.next(true);
+
     const data: SignUpData = this.form.value;
-    this.authService.signUp(data).subscribe(() => this.router.navigate(['/login']));
+    this.authService.signUp(data).subscribe(() => {
+      this.loaderService.isLoading$.next(false);
+      this.router.navigate(['/login']);
+    });
   }
 
 }
