@@ -58,3 +58,15 @@
     border-left: 1px solid #ffffff;
   }
 }
+
+.user-initials {
+  @background: #303030;
+  display: flex;
+  justify-content: center;
+  background-color: @background;
+  transition: background-color .3s, color .3s;
+
+  &:hover {
+    background-color: darken(@background, 5%);
+  }
+}

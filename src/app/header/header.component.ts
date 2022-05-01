@@ -13,6 +13,9 @@ export class HeaderComponent {
   get isAuthorized(): boolean {
     return this.authService.isAuthorized;
   }
+  get userInitials(): string {
+    return this.authService.userInitials;
+  }
 
   constructor(private authService: AuthService) { }
 

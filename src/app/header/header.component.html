@@ -13,14 +13,17 @@
     <li class="menu__item">
       <a class="menu__link"
          routerLink="/create"
-         routerLinkActive="menu__link--active">New Post</a>
+         routerLinkActive="menu__link--active">
+        <mat-icon class="icon-24">add</mat-icon>
+        New Post
+      </a>
     </li>
     <li class="menu__separator"
         role="separator"></li>
     <li class="menu__item">
-      <button mat-button
-              class="menu__link"
-              [matMenuTriggerFor]="userMenu">User</button>
+      <button mat-icon-button
+              class="menu__link user-initials"
+              [matMenuTriggerFor]="userMenu">{{ userInitials }}</button>
       <mat-menu #userMenu>
         <button mat-menu-item
                 (click)="logout()">
