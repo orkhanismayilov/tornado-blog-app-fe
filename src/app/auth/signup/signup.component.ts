@@ -42,7 +42,7 @@ export class SignupComponent extends AbstractAuthComponent {
   onSubmit(): void {
     if (this.form.invalid) { return; }
     const data: SignUpData = this.form.value;
-    this.authService.signUp(data).subscribe();
+    this.authService.signUp(data).subscribe(() => this.router.navigate(['/login']));
   }
 
 }

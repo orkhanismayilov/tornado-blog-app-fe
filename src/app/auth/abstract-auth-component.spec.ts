@@ -1,5 +1,6 @@
 import { Directive, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 import { FormErrors } from '../shared/interfaces/form-errors';
@@ -29,6 +30,7 @@ export abstract class AbstractAuthComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     protected authService: AuthService,
+    protected router: Router,
   ) { }
 
   ngOnInit(): void {

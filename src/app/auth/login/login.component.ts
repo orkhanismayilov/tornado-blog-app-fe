@@ -33,7 +33,7 @@ export class LoginComponent extends AbstractAuthComponent {
   onSubmit(): void {
     if (this.form.invalid) { return; }
     const data: AuthData = this.form.value;
-    this.authService.login(data).subscribe();
+    this.authService.login(data).subscribe(() => this.router.navigate(['/']));
   }
 
 }
