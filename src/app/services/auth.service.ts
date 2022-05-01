@@ -17,6 +17,7 @@ export class AuthService {
   private url = 'http://localhost:3000/api/auth';
   private tokenStorageKey = 'tornado_auth_token';
   private userStorageKey = 'tornado_user';
+  private expirationDateStorageKey = 'tornado_token_expiration_date';
   private expiration$: Subscription;
 
   get token(): string {
@@ -44,7 +45,22 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { }
+  ) {
+    if (this.isAuthenticated) {
+      try {
+        const expirationDate = new Date(localStorage.getItem(this.expirationDateStorageKey));
+        if (!expirationDate) {
+          this.logout();
+          return;
+        }
+
+        const expiresIn = (expirationDate.getTime() - Date.now()) / 1000;
+        this.setExpirationTimer(expiresIn);
+      } catch (err) {
+        this.logout();
+      }
+    }
+  }
 
   signUp(data: SignUpData): Observable<void> {
     return this.http.post<void>(`${this.url}/signup`, data);
@@ -55,6 +71,7 @@ export class AuthService {
       map(({ user, token, expiresIn }) => {
         this.setUser(user);
         this.setToken(token);
+        this.setExpirationDate(expiresIn);
         this.setExpirationTimer(expiresIn);
         this.isAuthenticatedSubject.next(true);
         return null;
@@ -75,6 +92,11 @@ export class AuthService {
 
   private setUser(user: User): void {
     localStorage.setItem(this.userStorageKey, JSON.stringify(user));
+  }
+
+  private setExpirationDate(expiresIn: number): void {
+    const expirationDate = new Date(Date.now() + (expiresIn * 1000)).toISOString();
+    localStorage.setItem(this.expirationDateStorageKey, expirationDate);
   }
 
   private setExpirationTimer(expiresIn: number): void {
