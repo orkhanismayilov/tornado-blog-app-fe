@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 
@@ -10,8 +11,8 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent {
 
   title = 'Tornado';
-  get isAuthorized(): boolean {
-    return this.authService.isAuthorized;
+  get isAuthorized$(): Observable<boolean> {
+    return this.authService.isAuthorized$;
   }
   get userInitials(): string {
     return this.authService.userInitials;

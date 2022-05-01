@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 
-import { AuthData, AuthResponse, SignUpData, User } from '../auth/interfaces/user';
+import {
+  AuthData,
+  AuthResponse,
+  SignUpData,
+  User,
+} from '../auth/interfaces/user';
 import { LoaderService } from './loader.service';
 
 @Injectable({ providedIn: 'root' })
@@ -17,8 +21,9 @@ export class AuthService {
     const token = localStorage.getItem(this.tokenStorageKey);
     return token || null;
   }
-  get isAuthorized(): boolean {
-    return !!this.token;
+  private isAuthorizedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  get isAuthorized$(): Observable<boolean> {
+    return this.isAuthorizedSubject.asObservable();
   }
   get userData(): User {
     const user = JSON.parse(localStorage.getItem(this.userStorageKey));
@@ -31,7 +36,6 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private loaderService: LoaderService,
   ) { }
 
@@ -44,6 +48,7 @@ export class AuthService {
       map(({ user, token }) => {
         this.setUser(user);
         this.setToken(token);
+        this.isAuthorizedSubject.next(true);
         return null;
       }),
     );
@@ -52,7 +57,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
-    this.router.navigate(['/']);
+    this.isAuthorizedSubject.next(false);
   }
 
   private setToken(token: string): void {
