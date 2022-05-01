@@ -8,7 +8,7 @@
       <span class="brand__text">{{title}}</span>
     </a>
   </span>
-  <ul *ngIf="isAuthorized$ | async"
+  <ul *ngIf="isAuthenticated$ | async"
       class="menu">
     <li class="menu__item">
       <a class="menu__link"
@@ -33,7 +33,7 @@
       </mat-menu>
     </li>
   </ul>
-  <ul *ngIf="!(isAuthorized$ | async)"
+  <ul *ngIf="!(isAuthenticated$ | async)"
       class="menu">
     <li class="menu__item">
       <a class="menu__link"

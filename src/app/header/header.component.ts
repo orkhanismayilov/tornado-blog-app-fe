@@ -11,8 +11,8 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent {
 
   title = 'Tornado';
-  get isAuthorized$(): Observable<boolean> {
-    return this.authService.isAuthorized$;
+  get isAuthenticated$(): Observable<boolean> {
+    return this.authService.isAuthenticated$;
   }
   get userInitials(): string {
     return this.authService.userInitials;

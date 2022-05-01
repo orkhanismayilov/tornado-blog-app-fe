@@ -20,8 +20,8 @@ export class PostsListComponent extends AbstractComponent implements OnInit {
   posts$: Observable<Post[]>;
   paginatorConfig: PaginatorConfig;
 
-  get isAuthorized$(): Observable<boolean> {
-    return this.authService.isAuthorized$;
+  get isAuthenticated$(): Observable<boolean> {
+    return this.authService.isAuthenticated$;
   }
 
   constructor(

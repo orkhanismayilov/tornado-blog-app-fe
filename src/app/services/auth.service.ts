@@ -21,9 +21,9 @@ export class AuthService {
     const token = localStorage.getItem(this.tokenStorageKey);
     return token || null;
   }
-  private isAuthorizedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  get isAuthorized$(): Observable<boolean> {
-    return this.isAuthorizedSubject.asObservable();
+  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  get isAuthenticated$(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable();
   }
   get userData(): User {
     const user = JSON.parse(localStorage.getItem(this.userStorageKey));
@@ -48,7 +48,7 @@ export class AuthService {
       map(({ user, token }) => {
         this.setUser(user);
         this.setToken(token);
-        this.isAuthorizedSubject.next(true);
+        this.isAuthenticatedSubject.next(true);
         return null;
       }),
     );
@@ -57,7 +57,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
-    this.isAuthorizedSubject.next(false);
+    this.isAuthenticatedSubject.next(false);
   }
 
   private setToken(token: string): void {
