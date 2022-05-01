@@ -81,6 +81,7 @@ export class AuthService {
     this.expiration$?.unsubscribe();
     this.expiration$ = timer(expiresIn * 1000).subscribe(() => {
       this.logout();
+      this.expiration$.unsubscribe();
     });
   }
 
