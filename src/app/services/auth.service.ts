@@ -18,14 +18,20 @@ export class AuthService {
   private url = 'http://localhost:3000/api/auth';
   private tokenStorageKey = 'tornado_auth_token';
   private userStorageKey = 'tornado_user';
+
   get token(): string {
     const token = localStorage.getItem(this.tokenStorageKey);
     return token || null;
   }
-  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(!!this.token);
   get isAuthenticated$(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
+  get isAuthenticated(): boolean {
+    return this.isAuthenticatedSubject.value;
+  }
+
   get userData(): User {
     const user = JSON.parse(localStorage.getItem(this.userStorageKey));
     return user;
@@ -38,7 +44,6 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private loaderService: LoaderService,
   ) { }
 
   signUp(data: SignUpData): Observable<void> {
