@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subscription, timer } from 'rxjs';
 
 import {
   AuthData,
@@ -10,7 +10,6 @@ import {
   SignUpData,
   User,
 } from '../auth/interfaces/user';
-import { LoaderService } from './loader.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -18,6 +17,7 @@ export class AuthService {
   private url = 'http://localhost:3000/api/auth';
   private tokenStorageKey = 'tornado_auth_token';
   private userStorageKey = 'tornado_user';
+  private expiration$: Subscription;
 
   get token(): string {
     const token = localStorage.getItem(this.tokenStorageKey);
@@ -52,9 +52,10 @@ export class AuthService {
 
   login(data: AuthData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.url}/login`, data).pipe(
-      map(({ user, token }) => {
+      map(({ user, token, expiresIn }) => {
         this.setUser(user);
         this.setToken(token);
+        this.setExpirationTimer(expiresIn);
         this.isAuthenticatedSubject.next(true);
         return null;
       }),
@@ -74,6 +75,13 @@ export class AuthService {
 
   private setUser(user: User): void {
     localStorage.setItem(this.userStorageKey, JSON.stringify(user));
+  }
+
+  private setExpirationTimer(expiresIn: number): void {
+    this.expiration$?.unsubscribe();
+    this.expiration$ = timer(expiresIn * 1000).subscribe(() => {
+      this.logout();
+    });
   }
 
 }

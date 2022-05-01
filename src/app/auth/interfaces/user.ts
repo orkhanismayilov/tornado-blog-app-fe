@@ -22,4 +22,5 @@ export interface SignUpData {
 export interface AuthResponse {
   user: User;
   token: string;
+  expiresIn: number;
 };
