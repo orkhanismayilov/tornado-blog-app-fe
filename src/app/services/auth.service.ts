@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 import {
   AuthData,
@@ -36,6 +37,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private loaderService: LoaderService,
   ) { }
 
@@ -58,6 +60,7 @@ export class AuthService {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
     this.isAuthenticatedSubject.next(false);
+    this.router.navigate(['/']);
   }
 
   private setToken(token: string): void {
