@@ -2,14 +2,17 @@ import { Component } from '@angular/core';
 
 import { FormErrors } from 'src/app/shared/interfaces/form-errors';
 
-import { AbstractAuthComponent } from '../abstract-auth-component.spec';
+import { AbstractAuthComponent } from '../abstract/abstract-auth-component.spec';
 import { Fieldsets } from '../interfaces/fieldsets';
 import { AuthData } from '../interfaces/user';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.less']
+  styleUrls: [
+    '../abstract/abstract-auth-component.less',
+    './login.component.less'
+  ]
 })
 export class LoginComponent extends AbstractAuthComponent {
 

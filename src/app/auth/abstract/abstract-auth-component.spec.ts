@@ -1,10 +1,11 @@
 import { Directive, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 
-import { FormErrors } from '../shared/interfaces/form-errors';
-import { Fieldsets } from './interfaces/fieldsets';
+import { AuthService } from 'src/app/services/auth.service';
+import { FormErrors } from 'src/app/shared/interfaces/form-errors';
+
+import { Fieldsets } from '../interfaces/fieldsets';
 
 @Directive()
 export abstract class AbstractAuthComponent implements OnInit {
