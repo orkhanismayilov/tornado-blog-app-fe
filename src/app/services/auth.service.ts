@@ -17,6 +17,7 @@ export class AuthService {
   private url = 'http://localhost:3000/api/auth';
   private tokenStorageKey = 'tornado_auth_token';
   private userStorageKey = 'tornado_user';
+  private expirationDateStorageKey = 'tornado_token_expiration_date';
   private expiration$: Subscription;
 
   get token(): string {
@@ -44,7 +45,21 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { }
+  ) {
+    if (this.isAuthenticated) {
+      try {
+        const expirationDate = new Date(localStorage.getItem(this.expirationDateStorageKey));
+        if (expirationDate > new Date()) {
+          const expiresIn = (expirationDate.getTime() - Date.now()) / 1000;
+          this.setExpirationTimer(expiresIn);
+          return;
+        }
+        this.logout();
+      } catch (err) {
+        this.logout();
+      }
+    }
+  }
 
   signUp(data: SignUpData): Observable<void> {
     return this.http.post<void>(`${this.url}/signup`, data);
@@ -55,6 +70,7 @@ export class AuthService {
       map(({ user, token, expiresIn }) => {
         this.setUser(user);
         this.setToken(token);
+        this.setExpirationDate(expiresIn);
         this.setExpirationTimer(expiresIn);
         this.isAuthenticatedSubject.next(true);
         return null;
@@ -66,6 +82,7 @@ export class AuthService {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
     this.isAuthenticatedSubject.next(false);
+    this.expiration$?.unsubscribe();
     this.router.navigate(['/']);
   }
 
@@ -77,11 +94,15 @@ export class AuthService {
     localStorage.setItem(this.userStorageKey, JSON.stringify(user));
   }
 
+  private setExpirationDate(expiresIn: number): void {
+    const expirationDate = new Date(Date.now() + (expiresIn * 1000)).toISOString();
+    localStorage.setItem(this.expirationDateStorageKey, expirationDate);
+  }
+
   private setExpirationTimer(expiresIn: number): void {
     this.expiration$?.unsubscribe();
     this.expiration$ = timer(expiresIn * 1000).subscribe(() => {
       this.logout();
-      this.expiration$.unsubscribe();
     });
   }
 
