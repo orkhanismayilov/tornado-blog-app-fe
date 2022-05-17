@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: PostsListComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'edit/:id', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
+  { path: '404', component: NotFoundComponent },
 ];
 
 @NgModule({

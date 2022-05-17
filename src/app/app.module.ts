@@ -23,6 +23,7 @@ import { ImagePickerComponent } from './image-picker/image-picker.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
 import { AuthInterceptor } from './services/auth-interceptor';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
     ImagePickerComponent,
     LoginComponent,
     SignupComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
