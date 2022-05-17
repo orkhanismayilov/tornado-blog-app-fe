@@ -23,6 +23,9 @@ export class PostsListComponent extends AbstractComponent implements OnInit {
   get isAuthenticated$(): Observable<boolean> {
     return this.authService.isAuthenticated$;
   }
+  get userId(): string {
+    return this.authService.userData.id;
+  }
 
   constructor(
     private postsService: PostsService,

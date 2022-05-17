@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { filter, switchMap } from 'rxjs';
 import { PostsApiService } from 'src/app/api/posts-api.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { FormErrors } from 'src/app/shared/interfaces/form-errors';
@@ -51,6 +52,7 @@ export class PostCreateComponent implements OnInit {
     private router: Router,
     private postsService: PostsService,
     private postsApi: PostsApiService,
+    private authService: AuthService,
     public loaderService: LoaderService,
   ) { }
 
@@ -64,6 +66,13 @@ export class PostCreateComponent implements OnInit {
     this.route.paramMap.pipe(
       filter(paramMap => paramMap.has('id')),
       switchMap(paramMap => this.postsApi.getPost(paramMap.get('id'))),
+      filter(post => {
+        if (post.author !== this.authService.userData.id) {
+          this.router.navigate(['/404']);
+          return false;
+        }
+        return true;
+      }),
     ).subscribe(post => this.setMode(post));
   }
 
