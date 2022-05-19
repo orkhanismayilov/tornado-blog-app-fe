@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const authRoutes = require('./routes/auth');
-const postsRoutes = require('./routes/posts');
+const authRoutes = require('./routes/auth.route');
+const postsRoutes = require('./routes/posts.route');
 const { MONGO_DB_CONNECTION_STRING } = require('./config');
 
 mongoose.connect(MONGO_DB_CONNECTION_STRING)
