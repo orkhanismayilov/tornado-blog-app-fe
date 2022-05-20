@@ -11,18 +11,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
-  imports: [
-    MatToolbarModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatMenuModule,
-  ],
   exports: [
     MatToolbarModule,
     MatExpansionModule,
