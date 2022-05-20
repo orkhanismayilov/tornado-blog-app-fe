@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { environment as env } from 'src/environments/environment';
 import { BehaviorSubject, map, Observable, Subscription, timer } from 'rxjs';
 
 import {
@@ -14,7 +15,6 @@ import {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private url = 'http://localhost:3000/api/auth';
   private tokenStorageKey = 'tornado_auth_token';
   private userStorageKey = 'tornado_user';
   private expirationDateStorageKey = 'tornado_token_expiration_date';
@@ -62,11 +62,11 @@ export class AuthService {
   }
 
   signUp(data: SignUpData): Observable<void> {
-    return this.http.post<void>(`${this.url}/signup`, data);
+    return this.http.post<void>(`${env.api.auth}/signup`, data);
   }
 
   login(data: AuthData): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.url}/login`, data).pipe(
+    return this.http.post<AuthResponse>(`${env.api.auth}/login`, data).pipe(
       map(({ user, token, expiresIn }) => {
         this.setUser(user);
         this.setToken(token);
