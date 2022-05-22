@@ -2,6 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Orelega+One&display=swap');
 @import url('./spacing.less');
 
+:root {
+  --bg-dark: hsl(0, 0%, 19%);
+  --bg-light: hsl(0, 0%, 26%);
+  --primary: hsl(282, 68%, 38%);
+  --accent: hsl(151, 82%, 68%);
+  --success: hsl(123 41% 48%);
+  --error: hsl(0 70% 60%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -55,6 +64,10 @@ mat-form-field {
 
 .form-group {
   margin-bottom: .5rem;
+}
+
+.snackbar-container {
+  background-color: var(--bg-light);
 }
 
 .generate-icon-sizes(16);

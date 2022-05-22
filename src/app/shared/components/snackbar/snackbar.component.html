@@ -1,0 +1,11 @@
+<div class="snackbar">
+  <mat-icon class="snackbar__icon icon-24"
+            [class.snackbar__icon--success]="!data.isError"
+            [class.snackbar__icon--error]="data.isError">{{ data.isError ? 'error' : 'check' }}</mat-icon>
+  <span class="snackbar__message">{{ data.message }}</span>
+  <button mat-icon-button
+          class="snackbar__close">
+    <mat-icon class="icon-24"
+              (click)="onClose()">close</mat-icon>
+  </button>
+</div>
