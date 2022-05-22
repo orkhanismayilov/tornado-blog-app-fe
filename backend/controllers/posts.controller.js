@@ -30,7 +30,7 @@ class PostsController {
     const author = req.userData.userId;
 
     if (!(title && content && file)) {
-      res.status(400).json({ message: 'Invalid post data' });
+      return res.status(400).json({ message: 'Invalid post data' });
     }
 
     const post = new Post({
@@ -49,7 +49,7 @@ class PostsController {
     const file = req.file;
 
     if (!(title && content && (imagePath || file))) {
-      res.status(400).json({ message: 'Invalid post data' });
+      return res.status(400).json({ message: 'Invalid post data' });
     }
 
     if (req.file) {
@@ -58,7 +58,7 @@ class PostsController {
 
     const post = await Post.findById(req.params.id);
     if (post.author !== req.userData.userId) {
-      res.status(403).json({ message: 'You do not have permisson to edit this post' });
+      return res.status(403).json({ message: 'You do not have permisson to edit this post' });
     }
 
     post.title = title;
@@ -72,7 +72,7 @@ class PostsController {
   async deletePost(req, res) {
     const post = await Post.findById(req.params.id);
     if (post.author !== req.userData.userId) {
-      req.status(403).json({ message: 'You do not have permission to delete this post' });
+      return req.status(403).json({ message: 'You do not have permission to delete this post' });
     }
 
     res.status(200);

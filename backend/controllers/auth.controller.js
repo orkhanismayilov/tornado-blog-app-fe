@@ -9,7 +9,7 @@ class AuthController {
     const { firstName, lastName, email, password } = req.body;
 
     if (!(firstName && lastName && email && password)) {
-      res.status('400').json({ message: 'Invalid user data' });
+      return res.status('400').json({ message: 'Invalid user data' });
     }
 
     const user = new User({
@@ -28,17 +28,17 @@ class AuthController {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      res.status(401).json({ message: 'Email or password is invalid' });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(401).json({ message: 'Email or password is invalid' });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const isAuthorized = await bcrypt.compare(password, user.password);
     if (!isAuthorized) {
-      res.status(401).json({ message: 'Email or password is invalid' });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const tokenData = {
