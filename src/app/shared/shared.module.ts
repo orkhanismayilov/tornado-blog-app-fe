@@ -18,14 +18,5 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     AngularMaterialModule,
   ],
   exports: [HeaderComponent],
-  providers: [
-    {
-      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: {
-        verticalPosition: 'top',
-        panelClass: 'snackbar-container',
-      },
-    },
-  ],
 })
 export class SharedModule { }
