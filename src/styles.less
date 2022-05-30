@@ -5,10 +5,10 @@
 :root {
   --bg-dark: hsl(0, 0%, 19%);
   --bg-light: hsl(0, 0%, 26%);
-  --primary: hsl(282, 68%, 38%);
-  --accent: hsl(151, 82%, 68%);
-  --success: hsl(123 41% 48%);
-  --error: hsl(0 70% 60%);
+  --clr-primary: hsl(282, 68%, 38%);
+  --clr-accent: hsl(151, 82%, 68%);
+  --clr-success: hsl(123 41% 48%);
+  --clr-error: hsl(0 70% 60%);
 }
 
 * {
@@ -67,7 +67,10 @@ mat-form-field {
 }
 
 .snackbar-container {
+  position: relative;
+  padding: 0 !important;
   background-color: var(--bg-light);
+  overflow: hidden;
 }
 
 .generate-icon-sizes(16);

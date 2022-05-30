@@ -1,16 +1,17 @@
 .snackbar {
   display: flex;
   align-items: center;
+  padding: 1rem;
 
   &__icon {
     margin-right: .5rem;
 
     &--success {
-      color: var(--success);
+      color: var(--clr-success);
     }
 
     &--error {
-      color: var(--error);
+      color: var(--clr-error);
     }
   }
 
@@ -20,8 +21,21 @@
   }
 
   &__close {
+    @width: 20px;
+    width: @width;
+    height: @width;
+    line-height: @width;
     color: #ffffff;
     margin-left: auto;
+  }
+
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--clr-accent);
   }
 
 }

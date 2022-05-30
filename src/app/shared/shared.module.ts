@@ -22,7 +22,6 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {
-        duration: 5000,
         verticalPosition: 'top',
         panelClass: 'snackbar-container',
       },

@@ -16,6 +16,7 @@ export class SnackbarService {
       data: {
         isError,
         message,
+        duration: 5000,
       },
       ...config,
     });
