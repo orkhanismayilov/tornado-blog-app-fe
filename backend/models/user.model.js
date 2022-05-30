@@ -16,17 +16,15 @@ const userSchema = new Schema(
     timestamps: {},
     toJSON: {
       virtuals: true,
-      transform: (doc, ret) => {
-        delete ret._id;
-        delete ret.__v;
-        delete ret.password;
-        return ret;
+      transform: (_, ret) => {
+        const { _id, __v, password, ...user } = ret;
+        return user;
       },
     },
   },
 );
 
 userSchema.virtual('id').get(() => this._id);
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator, { message: 'User with email {VALUE} already exists!' });
 
 module.exports = mongoose.model('User', userSchema);

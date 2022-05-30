@@ -15,10 +15,9 @@ const postSchema = new Schema(
     timestamps: {},
     toJSON: {
       virtuals: true,
-      transform: (doc, ret) => {
-        delete ret._id;
-        delete ret.__v;
-        return ret;
+      transform: (_, ret) => {
+        const { _id, __v, ...post } = ret;
+        return post;
       },
     },
   },
