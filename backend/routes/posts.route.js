@@ -1,7 +1,6 @@
 const Router = require('express').Router;
 const PostsController = require('../controllers/posts.controller');
 const authorize = require('../middlewares/auth.middleware');
-const getFile = require('../middlewares/file.middleware');
 
 const router = module.exports = new Router();
 
@@ -21,7 +20,6 @@ router.get('/:id', PostsController.getPost);
 router.post(
   '',
   authorize,
-  getFile('image'),
   PostsController.createPost,
 );
 
@@ -31,7 +29,6 @@ router.post(
 router.patch(
   '/:id',
   authorize,
-  getFile('image'),
   PostsController.updatePost,
 );
 

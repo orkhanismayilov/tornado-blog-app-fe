@@ -1,3 +1,4 @@
+const getFile = require('../middlewares/file.middleware')('image');
 const Post = require('../models/post.model');
 
 class PostsController {
@@ -25,48 +26,60 @@ class PostsController {
   };
 
   async createPost(req, res) {
-    const { title, content } = req.body;
-    const file = req.file;
-    const author = req.userData.userId;
+    getFile(req, res, async (err) => {
+      if (err instanceof Error) {
+        return res.status(400).json({ message: err.message });
+      }
 
-    if (!(title && content && file)) {
-      return res.status(400).json({ message: 'Invalid post data' });
-    }
+      const { title, content } = req.body;
+      const file = req.file;
+      const author = req.userData.userId;
 
-    const post = new Post({
-      title,
-      content,
-      author,
-      imagePath: `http://localhost:3000/images/${req.file.filename}`,
+      if (!(title && content && file)) {
+        return res.status(400).json({ message: 'Invalid post data' });
+      }
+
+      const post = new Post({
+        title,
+        content,
+        author,
+        imagePath: `http://localhost:3000/images/${req.file.filename}`,
+      });
+      const createdPost = await post.save();
+      res.status(201).json(createdPost);
     });
-    const createdPost = await post.save();
-    res.status(201).json(createdPost);
   };
 
   async updatePost(req, res) {
-    const { title, content } = req.body;
-    let { imagePath } = req.body;
-    const file = req.file;
+    getFile(req, res, async (err) => {
+      if (err instanceof Error) {
+        return res.status(400).json({ message: err.message });
+      }
 
-    if (!(title && content && (imagePath || file))) {
-      return res.status(400).json({ message: 'Invalid post data' });
-    }
+      const { title, content } = req.body;
+      let { imagePath } = req.body;
+      const file = req.file;
 
-    if (req.file) {
-      imagePath = `http://localhost:3000/images/${req.file.filename}`;
-    }
+      if (!(title && content && (imagePath || file))) {
+        return res.status(400).json({ message: 'Invalid post data' });
+      }
 
-    const post = await Post.findById(req.params.id);
-    if (post.author !== req.userData.userId) {
-      return res.status(403).json({ message: 'You do not have permisson to edit this post' });
-    }
+      if (req.file) {
+        imagePath = `http://localhost:3000/images/${req.file.filename}`;
+      }
 
-    post.title = title;
-    post.content = content;
-    post.imagePath = imagePath;
-    await post.save();
+      const post = await Post.findById(req.params.id);
+      if (post.author !== req.userData.userId) {
+        return res.status(403).json({ message: 'You do not have permisson to edit this post' });
+      }
 
-    res.json(null);
+      post.title = title;
+      post.content = content;
+      post.imagePath = imagePath;
+      await post.save();
+
+      res.json(null);
+    });
   };
 
   async deletePost(req, res) {
