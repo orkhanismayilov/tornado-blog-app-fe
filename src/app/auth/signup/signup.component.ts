@@ -18,10 +18,10 @@ import { SignUpData } from '../interfaces/user';
 export class SignupComponent extends AbstractAuthComponent {
 
   fieldsets: Fieldsets = {
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    email: [null, this.emailValidators],
-    password: [null, this.passwordValidators],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', this.emailValidators],
+    password: ['', this.passwordValidators],
   };
 
   errorsMap: FormErrors = {

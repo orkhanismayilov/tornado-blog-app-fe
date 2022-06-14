@@ -17,8 +17,8 @@ import { AuthData } from '../interfaces/user';
 export class LoginComponent extends AbstractAuthComponent {
 
   fieldsets: Fieldsets = {
-    email: [null, this.emailValidators],
-    password: [null, this.passwordValidators],
+    email: ['', this.emailValidators],
+    password: ['', this.passwordValidators],
   };
 
   errorsMap: FormErrors = {
@@ -36,7 +36,7 @@ export class LoginComponent extends AbstractAuthComponent {
   onSubmit(): void {
     if (this.form.invalid || this.loaderService.isLoading$.value) { return; }
     this.loaderService.isLoading$.next(true);
-    
+
     const data: AuthData = this.form.value;
     this.authService.login(data).subscribe(() => {
       this.loaderService.isLoading$.next(false);

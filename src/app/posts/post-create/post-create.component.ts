@@ -58,8 +58,8 @@ export class PostCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: [null, this.validators],
-      content: [null, this.validators],
+      title: ['', this.validators],
+      content: ['', this.validators],
       image: [null, [Validators.required], [mimeTipeValidator]],
     });
 
