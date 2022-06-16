@@ -7,9 +7,9 @@ export interface Post {
   author: string;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
 export interface PostsListResponse {
   data: Post[];
   total: number;
-};
+}

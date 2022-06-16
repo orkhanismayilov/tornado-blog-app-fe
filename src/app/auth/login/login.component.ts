@@ -11,11 +11,10 @@ import { AuthData } from '../interfaces/user';
   templateUrl: './login.component.html',
   styleUrls: [
     '../abstract/abstract-auth-component.less',
-    './login.component.less'
-  ]
+    './login.component.less',
+  ],
 })
 export class LoginComponent extends AbstractAuthComponent {
-
   fieldsets: Fieldsets = {
     email: ['', this.emailValidators],
     password: ['', this.passwordValidators],
@@ -34,7 +33,9 @@ export class LoginComponent extends AbstractAuthComponent {
   };
 
   onSubmit(): void {
-    if (this.form.invalid || this.loaderService.isLoading$.value) { return; }
+    if (this.form.invalid || this.loaderService.isLoading$.value) {
+      return;
+    }
     this.loaderService.isLoading$.next(true);
 
     const data: AuthData = this.form.value;
@@ -43,5 +44,4 @@ export class LoginComponent extends AbstractAuthComponent {
       this.router.navigate(['/']);
     });
   }
-
 }

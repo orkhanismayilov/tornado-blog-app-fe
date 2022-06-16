@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { environment as env } from 'src/environments/environment';
 import { BehaviorSubject, map, Observable, Subscription, timer } from 'rxjs';
+import { environment as env } from 'src/environments/environment';
 
 import {
   AuthData,
@@ -14,7 +14,6 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
   private tokenStorageKey = 'tornado_auth_token';
   private userStorageKey = 'tornado_user';
   private expirationDateStorageKey = 'tornado_token_expiration_date';
@@ -25,7 +24,8 @@ export class AuthService {
     return token || null;
   }
 
-  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(!!this.token);
+  private isAuthenticatedSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject(!!this.token);
   get isAuthenticated$(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
@@ -39,16 +39,17 @@ export class AuthService {
   }
   get userInitials(): string {
     const user = this.userData;
-    return `${user.firstName.charAt(0).toUpperCase()}${user.lastName.charAt(0).toUpperCase()}`;
+    return `${user.firstName.charAt(0).toUpperCase()}${user.lastName
+      .charAt(0)
+      .toUpperCase()}`;
   }
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     if (this.isAuthenticated) {
       try {
-        const expirationDate = new Date(localStorage.getItem(this.expirationDateStorageKey));
+        const expirationDate = new Date(
+          localStorage.getItem(this.expirationDateStorageKey),
+        );
         if (expirationDate > new Date()) {
           const expiresIn = (expirationDate.getTime() - Date.now()) / 1000;
           this.setExpirationTimer(expiresIn);
@@ -95,7 +96,9 @@ export class AuthService {
   }
 
   private setExpirationDate(expiresIn: number): void {
-    const expirationDate = new Date(Date.now() + (expiresIn * 1000)).toISOString();
+    const expirationDate = new Date(
+      Date.now() + expiresIn * 1000,
+    ).toISOString();
     localStorage.setItem(this.expirationDateStorageKey, expirationDate);
   }
 
@@ -105,5 +108,4 @@ export class AuthService {
       this.logout();
     });
   }
-
 }

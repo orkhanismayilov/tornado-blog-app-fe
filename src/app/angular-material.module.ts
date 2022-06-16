@@ -32,7 +32,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSnackBarModule,
   ],
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { hideRequiredMarker: true } },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { hideRequiredMarker: true },
+    },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {
@@ -42,4 +45,4 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     },
   ],
 })
-export class AngularMaterialModule { }
+export class AngularMaterialModule {}

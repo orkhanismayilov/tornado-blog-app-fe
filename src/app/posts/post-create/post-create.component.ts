@@ -15,15 +15,14 @@ import { mimeTipeValidator } from '../validators/mime-type.validator';
 enum Modes {
   Create = 'create',
   Edit = 'edit',
-};
+}
 
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.less']
+  styleUrls: ['./post-create.component.less'],
 })
 export class PostCreateComponent implements OnInit {
-
   Modes = Modes;
 
   form: FormGroup;
@@ -54,7 +53,7 @@ export class PostCreateComponent implements OnInit {
     private postsApi: PostsApiService,
     private authService: AuthService,
     public loaderService: LoaderService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -63,17 +62,19 @@ export class PostCreateComponent implements OnInit {
       image: [null, [Validators.required], [mimeTipeValidator]],
     });
 
-    this.route.paramMap.pipe(
-      filter(paramMap => paramMap.has('id')),
-      switchMap(paramMap => this.postsApi.getPost(paramMap.get('id'))),
-      filter(post => {
-        if (post.author !== this.authService.userData.id) {
-          this.router.navigate(['/404']);
-          return false;
-        }
-        return true;
-      }),
-    ).subscribe(post => this.setMode(post));
+    this.route.paramMap
+      .pipe(
+        filter(paramMap => paramMap.has('id')),
+        switchMap(paramMap => this.postsApi.getPost(paramMap.get('id'))),
+        filter(post => {
+          if (post.author !== this.authService.userData.id) {
+            this.router.navigate(['/404']);
+            return false;
+          }
+          return true;
+        }),
+      )
+      .subscribe(post => this.setMode(post));
   }
 
   onSubmit(): void {
@@ -117,5 +118,4 @@ export class PostCreateComponent implements OnInit {
     }
     this.router.navigate(['/create']);
   }
-
 }

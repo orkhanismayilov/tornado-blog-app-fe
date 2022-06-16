@@ -10,16 +10,12 @@ import { Fieldsets } from '../interfaces/fieldsets';
 
 @Directive()
 export abstract class AbstractAuthComponent implements OnInit {
-
   form: FormGroup;
   protected abstract fieldsets: Fieldsets;
   protected abstract errorsMap: FormErrors;
 
   protected get emailValidators() {
-    return [
-      Validators.required,
-      Validators.email,
-    ];
+    return [Validators.required, Validators.email];
   }
   protected get passwordValidators() {
     return [
@@ -34,7 +30,7 @@ export abstract class AbstractAuthComponent implements OnInit {
     protected authService: AuthService,
     protected router: Router,
     public loaderService: LoaderService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.fieldsets) {
@@ -48,5 +44,4 @@ export abstract class AbstractAuthComponent implements OnInit {
     const errorKey = Object.keys(this.form.get(fieldName).errors ?? {})[0];
     return this.errorsMap[fieldName][errorKey];
   }
-
 }

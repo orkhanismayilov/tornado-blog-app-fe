@@ -10,17 +10,7 @@ import { PostCreateComponent } from './post-create/post-create.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 
 @NgModule({
-  declarations: [
-    PostsListComponent,
-    PostCreateComponent,
-    ImagePickerComponent,
-  ],
-  imports: [
-    CommonModule,
-    AngularMaterialModule,
-    ReactiveFormsModule,
-    RouterModule,
-    SharedModule,
-  ],
+  declarations: [PostsListComponent, PostCreateComponent, ImagePickerComponent],
+  imports: [CommonModule, AngularMaterialModule, ReactiveFormsModule, RouterModule, SharedModule],
 })
-export class PostsModule { }
+export class PostsModule {}

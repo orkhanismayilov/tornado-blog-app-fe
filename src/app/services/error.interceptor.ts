@@ -13,20 +13,21 @@ import { SnackbarService } from './snackbar.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-
   constructor(
     private loaderService: LoaderService,
     private snackbarService: SnackbarService,
-  ) { }
+  ) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
-      catchError((err) => {
+      catchError(err => {
         this.loaderService.isLoading$.next(false);
         this.snackbarService.open(err.error.message ?? 'Unknown error');
         return of(null);
       }),
     );
   }
-
 }

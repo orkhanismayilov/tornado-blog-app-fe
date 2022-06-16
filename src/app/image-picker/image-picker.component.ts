@@ -1,4 +1,3 @@
-// TODO: Deal with imports' sorting
 import {
   Component,
   ElementRef,
@@ -13,10 +12,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-image-picker',
   templateUrl: './image-picker.component.html',
-  styleUrls: ['./image-picker.component.less']
+  styleUrls: ['./image-picker.component.less'],
 })
 export class ImagePickerComponent {
-
   @Input() postTitle: string;
   @Input() validMimeType: boolean = false;
   @Input() set postImage(path: string) {
@@ -33,10 +31,7 @@ export class ImagePickerComponent {
   thumbnail: SafeResourceUrl;
   blobname: string;
 
-  constructor(
-    private renderer: Renderer2,
-    private sanitizer: DomSanitizer,
-  ) { }
+  constructor(private renderer: Renderer2, private sanitizer: DomSanitizer) {}
 
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files[0];
@@ -59,10 +54,11 @@ export class ImagePickerComponent {
   private setThumbnail(file: File): void {
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      this.thumbnail = this.sanitizer.bypassSecurityTrustResourceUrl(fileReader.result as string);
+      this.thumbnail = this.sanitizer.bypassSecurityTrustResourceUrl(
+        fileReader.result as string,
+      );
       this.blobname = file.name;
     };
     fileReader.readAsDataURL(file);
   }
-
 }

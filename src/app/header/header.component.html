@@ -1,52 +1,65 @@
 <mat-toolbar color="primary">
   <span class="brand">
-    <a class="brand__link"
-       routerLink="/">
-      <img class="brand__logo"
-           src="/assets/logo/logo-white.svg"
-           alt="Tornado Blog">
-      <span class="brand__text">{{title}}</span>
+    <a
+      class="brand__link"
+      routerLink="/">
+      <img
+        class="brand__logo"
+        src="/assets/logo/logo-white.svg"
+        alt="Tornado Blog" />
+      <span class="brand__text">{{ title }}</span>
     </a>
   </span>
-  <ul *ngIf="isAuthenticated$ | async"
-      class="menu">
+  <ul
+    *ngIf="isAuthenticated$ | async"
+    class="menu">
     <li class="menu__item">
-      <a class="menu__link"
-         routerLink="/create"
-         routerLinkActive="menu__link--active">
+      <a
+        class="menu__link"
+        routerLink="/create"
+        routerLinkActive="menu__link--active">
         <mat-icon class="icon-24">add</mat-icon>
         New Post
       </a>
     </li>
-    <li class="menu__separator"
-        role="separator"></li>
+    <li
+      class="menu__separator"
+      role="separator"></li>
     <li class="menu__item">
-      <button mat-icon-button
-              class="menu__link user-initials"
-              [matMenuTriggerFor]="userMenu">{{ userInitials }}</button>
+      <button
+        mat-icon-button
+        class="menu__link user-initials"
+        [matMenuTriggerFor]="userMenu">
+        {{ userInitials }}
+      </button>
       <mat-menu #userMenu>
-        <button mat-menu-item
-                (click)="onLogout()">
+        <button
+          mat-menu-item
+          (click)="onLogout()">
           <mat-icon class="icon-24">logout</mat-icon>
           <span>Logout</span>
         </button>
       </mat-menu>
     </li>
   </ul>
-  <ul *ngIf="!(isAuthenticated$ | async)"
-      class="menu">
+  <ul
+    *ngIf="!(isAuthenticated$ | async)"
+    class="menu">
     <li class="menu__item">
-      <a class="menu__link"
-         routerLink="/login">
+      <a
+        class="menu__link"
+        routerLink="/login">
         <mat-icon class="icon-24">login</mat-icon>
         Login
       </a>
     </li>
-    <li class="menu__separator"
-        role="separator"></li>
+    <li
+      class="menu__separator"
+      role="separator"></li>
     <li class="menu__item">
-      <a class="menu__link"
-         routerLink="/signup">
+      <a
+        class="menu__link"
+        routerLink="/signup">
         <mat-icon class="icon-24">person_add_alt</mat-icon>
         Sign Up
       </a>

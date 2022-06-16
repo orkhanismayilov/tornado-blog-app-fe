@@ -14,10 +14,7 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-  ],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,4 +31,4 @@ import { SharedModule } from './shared/shared.module';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

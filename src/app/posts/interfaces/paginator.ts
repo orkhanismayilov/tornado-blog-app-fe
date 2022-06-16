@@ -3,4 +3,4 @@ export interface PaginatorConfig {
   limitOptions: number[];
   currentPage: number;
   total: number;
-};
+}

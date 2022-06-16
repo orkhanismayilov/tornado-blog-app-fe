@@ -2,17 +2,22 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 import { Observable, Observer, of } from 'rxjs';
 
-export const mimeTipeValidator = (control: AbstractControl): Observable<ValidationErrors | null> => {
+export const mimeTipeValidator = (
+  control: AbstractControl,
+): Observable<ValidationErrors | null> => {
   if (!(control.value instanceof File)) {
     return of(null);
-  };
+  }
 
   const file: File = control.value;
   const fileReader = new FileReader();
   let isValid = false;
-  const fr$ = new Observable((observer: Observer<{ [key: string]: any; }>) => {
+  const fr$ = new Observable((observer: Observer<{ [key: string]: any }>) => {
     fileReader.addEventListener('loadend', () => {
-      const array = new Uint8Array(fileReader.result as ArrayBuffer).subarray(0, 4);
+      const array = new Uint8Array(fileReader.result as ArrayBuffer).subarray(
+        0,
+        4,
+      );
       let header = '';
       for (let i = 0; i < array.length; i++) {
         header += array[i].toString(16);
@@ -39,4 +44,4 @@ export const mimeTipeValidator = (control: AbstractControl): Observable<Validati
   });
 
   return fr$;
-}
+};

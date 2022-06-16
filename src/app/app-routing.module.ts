@@ -8,9 +8,16 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 
 const routes: Routes = [
   { path: '', component: PostsListComponent, pathMatch: 'full' },
-  { path: '', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  {
+    path: '',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+  },
   { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
-  { path: 'edit/:id', component: PostCreateComponent, canActivate: [AuthGuard] },
+  {
+    path: 'edit/:id',
+    component: PostCreateComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '404' },
 ];
@@ -19,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

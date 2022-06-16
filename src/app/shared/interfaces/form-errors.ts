@@ -1,3 +1,3 @@
 export interface FormErrors {
-  [control: string]: { [key: string]: string; };
+  [control: string]: { [key: string]: string };
 }

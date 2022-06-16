@@ -12,11 +12,10 @@ import { SignUpData } from '../interfaces/user';
   templateUrl: './signup.component.html',
   styleUrls: [
     '../abstract/abstract-auth-component.less',
-    './signup.component.less'
-  ]
+    './signup.component.less',
+  ],
 })
 export class SignupComponent extends AbstractAuthComponent {
-
   fieldsets: Fieldsets = {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -43,7 +42,9 @@ export class SignupComponent extends AbstractAuthComponent {
   };
 
   onSubmit(): void {
-    if (this.form.invalid || this.loaderService.isLoading$.value) { return; }
+    if (this.form.invalid || this.loaderService.isLoading$.value) {
+      return;
+    }
     this.loaderService.isLoading$.next(true);
 
     const data: SignUpData = this.form.value;
@@ -52,5 +53,4 @@ export class SignupComponent extends AbstractAuthComponent {
       this.router.navigate(['/login']);
     });
   }
-
 }

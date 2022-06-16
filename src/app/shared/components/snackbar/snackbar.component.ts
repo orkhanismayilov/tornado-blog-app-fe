@@ -26,7 +26,6 @@ import { SnackbarData } from '../../interfaces/snackbar';
   styleUrls: ['./snackbar.component.less'],
 })
 export class SnackbarComponent implements OnInit, OnDestroy {
-
   private timer$: Subscription;
   private paused$: Subject<boolean> = new Subject();
   timeElapsed: number = 0;
@@ -41,8 +40,8 @@ export class SnackbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private snackbarService: SnackbarService,
-    @Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData
-  ) { }
+    @Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData,
+  ) {}
 
   ngOnInit(): void {
     if (this.data.duration) {
@@ -59,18 +58,21 @@ export class SnackbarComponent implements OnInit, OnDestroy {
   }
 
   private setTimer(): void {
-    this.timer$ = interval().pipe(
-      timeInterval(),
-      map((i) => this.timeElapsed += i.interval),
-      tap(_ => this.progress = this.timeElapsed / this.data.duration * 100),
-      filter(timePassed => timePassed >= this.data.duration),
-      tap(_ => this.onClose()),
-      takeUntil(this.paused$),
-    ).subscribe();
+    this.timer$ = interval()
+      .pipe(
+        timeInterval(),
+        map(i => (this.timeElapsed += i.interval)),
+        tap(
+          _ => (this.progress = (this.timeElapsed / this.data.duration) * 100),
+        ),
+        filter(timePassed => timePassed >= this.data.duration),
+        tap(_ => this.onClose()),
+        takeUntil(this.paused$),
+      )
+      .subscribe();
   }
 
   private pauseTimer(): void {
     this.paused$.next(true);
   }
-
 }

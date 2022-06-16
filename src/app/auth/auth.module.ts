@@ -8,10 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    SignupComponent,
-  ],
+  declarations: [LoginComponent, SignupComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,
@@ -19,4 +16,4 @@ import { SignupComponent } from './signup/signup.component';
     AuthRoutingModule,
   ],
 })
-export class AuthModule { }
+export class AuthModule {}

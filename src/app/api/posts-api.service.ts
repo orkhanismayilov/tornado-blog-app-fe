@@ -2,17 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-
 import { environment as env } from 'src/environments/environment';
+
 import { Post, PostsListResponse } from '../posts/interfaces/post';
 
 @Injectable({ providedIn: 'root' })
 export class PostsApiService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getPostsList(limit: number = 5, page: number = 1): Observable<PostsListResponse> {
-    const params = { limit, page }
+  getPostsList(
+    limit: number = 5,
+    page: number = 1,
+  ): Observable<PostsListResponse> {
+    const params = { limit, page };
     return this.http.get<PostsListResponse>(env.api.posts, { params });
   }
 
@@ -31,5 +33,4 @@ export class PostsApiService {
   deletePost(id: string): Observable<void> {
     return this.http.delete<void>(`${env.api.posts}/${id}`);
   }
-
 }
