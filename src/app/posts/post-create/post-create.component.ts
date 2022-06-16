@@ -67,7 +67,7 @@ export class PostCreateComponent implements OnInit {
         filter(paramMap => paramMap.has('id')),
         switchMap(paramMap => this.postsApi.getPost(paramMap.get('id'))),
         filter(post => {
-          if (post.author !== this.authService.userData.id) {
+          if (post.author.id !== this.authService.userData.id) {
             this.router.navigate(['/404']);
             return false;
           }

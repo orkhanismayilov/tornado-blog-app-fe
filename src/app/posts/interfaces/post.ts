@@ -1,10 +1,12 @@
+import { User } from 'src/app/auth/interfaces/user';
+
 export interface Post {
   id?: string;
   title: string;
   content: string;
   image?: File;
   imagePath: string;
-  author: string;
+  author: User;
   createdAt: Date;
   updatedAt: Date;
 }
