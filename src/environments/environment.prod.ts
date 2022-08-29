@@ -1,4 +1,5 @@
-const apiUrl = 'https://localhost:3000/api';
+const host = 'https://tornado.3031303.xyz';
+const apiUrl = `${host}/api`;
 
 export const environment = {
   production: true,
