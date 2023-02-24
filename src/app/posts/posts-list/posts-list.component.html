@@ -9,15 +9,22 @@
       <div
         *ngIf="(posts$ | async).length; else noPosts"
         class="posts-grid">
-        <mat-card
-          class="post"
+        <div
           *ngFor="let post of posts$ | async"
-          [routerLink]="['/posts', post.id]">
-          <img
-            loading="lazy"
-            mat-card-image
-            [src]="post.imagePath"
-            [alt]="post.title" />
+          class="post">
+          <mat-card [routerLink]="['/posts', post.id]">
+            <img
+              loading="lazy"
+              mat-card-image
+              [src]="post.imagePath"
+              [alt]="post.title" />
+            <ul class="post__meta-data">
+              <li>By {{ post.author.fullName }}</li>
+              <li>{{ post.createdAt | date : 'dd.MM.yyyy HH:mm' }}</li>
+            </ul>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+            <mat-card-subtitle>{{ post.content.substring(0, 300) }}</mat-card-subtitle>
+          </mat-card>
           <ul
             *ngIf="(isAuthenticated$ | async) && post.author.id === userId"
             class="post__actions">
@@ -30,26 +37,7 @@
               <span>Delete</span>
             </li>
           </ul>
-          <ul class="post__meta-data">
-            <li>By {{ post.author.fullName }}</li>
-            <li>{{ post.createdAt | date: 'dd.MM.yyyy HH:mm' }}</li>
-          </ul>
-          <mat-card-title>{{ post.title }}</mat-card-title>
-          <mat-card-subtitle>{{ post.content.substring(0, 300) }}</mat-card-subtitle>
-        </mat-card>
-        <!-- <div
-          class="post"
-          *ngFor="let post of posts$ | async">
-          <img
-            [src]="post.imagePath"
-            [alt]="post.title" />
-          <h2>{{ post.title }}</h2>
-          <span class="">{{ post.createdAt | date: 'dd.MM.yyyy HH:mm' }}</span>
-          <span class="post__author"
-            >{{ post.author.firstName }} {{ post.author.lastName }}</span
-          >
-          <p>{{ post.content.substring(0, 120) }}</p>
-        </div> -->
+        </div>
       </div>
 
       <ng-template #noPosts>
