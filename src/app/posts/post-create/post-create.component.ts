@@ -7,7 +7,7 @@ import { PostsApiService } from 'src/app/api/posts-api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
-import { FormErrors } from 'src/app/shared/interfaces/form-errors';
+import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
 
 import { Post } from '../interfaces/post';
 import { mimeTipeValidator } from '../validators/mime-type.validator';

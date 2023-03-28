@@ -6,7 +6,7 @@ import {
 } from '@angular/material/snack-bar';
 
 import { SnackbarComponent } from '../shared/components/snackbar/snackbar.component';
-import { SnackbarData } from '../shared/interfaces/snackbar';
+import { SnackbarData } from '../shared/interfaces/snackbar.interface.';
 
 @Injectable({ providedIn: 'root' })
 export class SnackbarService {

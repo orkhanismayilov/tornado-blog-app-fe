@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 
-import { Observable, takeUntil } from 'rxjs';
+import { filter, Observable, takeUntil, tap } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -18,6 +20,7 @@ import { Post } from '../interfaces/post';
 export class PostsListComponent extends AbstractComponent implements OnInit {
   posts$: Observable<Post[]>;
   paginatorConfig: PaginatorConfig;
+  private dialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   get isAuthenticated$(): Observable<boolean> {
     return this.authService.isAuthenticated$;
@@ -29,6 +32,7 @@ export class PostsListComponent extends AbstractComponent implements OnInit {
   constructor(
     private postsService: PostsService,
     private authService: AuthService,
+    private matDialog: MatDialog,
     public loaderService: LoaderService,
   ) {
     super();
@@ -44,7 +48,26 @@ export class PostsListComponent extends AbstractComponent implements OnInit {
   }
 
   onDeletePost(id: string) {
-    this.postsService.deletePost(id);
+    this.dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Delete Post',
+        icon: 'warning',
+        color: 'warning',
+        content: "Are you sure? This action can't be undone.",
+        cancelTitle: 'Cancel',
+        confirmTitle: 'Delete',
+      },
+      maxWidth: 270,
+    });
+
+    this.dialogRef
+      .afterClosed()
+      .pipe(
+        filter(Boolean),
+        tap(() => this.postsService.deletePost(id)),
+        takeUntil(this.destroyed$),
+      )
+      .subscribe();
   }
 
   onPageNavigate(event: PageEvent) {

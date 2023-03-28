@@ -8,9 +8,21 @@ import { ImagePickerComponent } from '../image-picker/image-picker.component';
 import { SharedModule } from '../shared/shared.module';
 import { PostCreateComponent } from './post-create/post-create.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @NgModule({
-  declarations: [PostsListComponent, PostCreateComponent, ImagePickerComponent],
-  imports: [CommonModule, AngularMaterialModule, ReactiveFormsModule, RouterModule, SharedModule],
+  declarations: [
+    PostsListComponent,
+    PostCreateComponent,
+    ImagePickerComponent,
+    ConfirmDialogComponent,
+  ],
+  imports: [
+    CommonModule,
+    AngularMaterialModule,
+    ReactiveFormsModule,
+    RouterModule,
+    SharedModule,
+  ],
 })
 export class PostsModule {}

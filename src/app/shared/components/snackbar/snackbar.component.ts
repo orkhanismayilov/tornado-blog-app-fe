@@ -19,7 +19,7 @@ import {
 } from 'rxjs';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
-import { SnackbarData } from '../../interfaces/snackbar';
+import { SnackbarData } from '../../interfaces/snackbar.interface.';
 
 @Component({
   templateUrl: './snackbar.component.html',

@@ -1,0 +1,47 @@
+:host {
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+mat-dialog-content {
+  mat-icon {
+    &[data-color='success'] {
+      color: var(--clr-success);
+    }
+
+    &[data-color='info'] {
+      color: var(--clr-info);
+    }
+
+    &[data-color='warning'] {
+      color: var(--clr-warning);
+    }
+
+    &[data-color='error'] {
+      color: var(--clr-error);
+    }
+  }
+
+  span {
+    display: block;
+  }
+}
+
+mat-dialog-actions {
+  flex-direction: column;
+  align-items: normal;
+  margin-bottom: 0;
+
+  button {
+    display: block;
+
+    &:not(.confirm) {
+      margin-left: 0;
+      margin-top: 0.5rem;
+      background-color: var(--bg-dark);
+    }
+  }
+}
