@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { FormErrors } from 'src/app/shared/interfaces/form-errors';
+import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
 
 import { Fieldsets } from '../interfaces/fieldsets';
 

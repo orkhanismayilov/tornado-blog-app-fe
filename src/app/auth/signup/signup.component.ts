@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 
-import { FormErrors } from 'src/app/shared/interfaces/form-errors';
+import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
 
 import { AbstractAuthComponent } from '../abstract/abstract-auth-component';
 import { Fieldsets } from '../interfaces/fieldsets';
