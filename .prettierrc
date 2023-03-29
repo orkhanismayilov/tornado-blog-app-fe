@@ -7,12 +7,5 @@
   "arrowParens": "avoid",
   "singleAttributePerLine": true,
   "bracketSameLine": true,
-  "overrides": [
-    {
-      "files": ["*.html"],
-      "options": {
-        "printWidth": 120
-      }
-    }
-  ]
+  "printWidth": 120
 }

@@ -17,9 +17,10 @@ export class PostDatePipe implements PipeTransform {
 
   transform(value: Date): string {
     const date = new Date(value);
-    if (new Date().getDate() - date.getDate() > 7) {
+    if (Math.abs((date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) >= 7) {
       return formatDate(date, 'dd MMMM yyyy HH:mm', 'en-US');
     }
+
     return this.formatTimeAgo(date);
   }
 
