@@ -20,7 +20,7 @@
             <mat-card-content>
               <ul class="post__meta-data">
                 <li>By {{ post.author.fullName }}</li>
-                <li>{{ post.createdAt | date : 'dd.MM.yyyy HH:mm' }}</li>
+                <li>{{ post.createdAt | postDate }}</li>
               </ul>
               <mat-card-title>{{ post.title }}</mat-card-title>
               <mat-card-subtitle>{{ post.content.substring(0, 300) }}</mat-card-subtitle>

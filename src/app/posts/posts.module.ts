@@ -8,9 +8,15 @@ import { ImagePickerComponent } from '../image-picker/image-picker.component';
 import { SharedModule } from '../shared/shared.module';
 import { PostCreateComponent } from './post-create/post-create.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
+import { PostDatePipe } from './pipes/post-date.pipe';
 
 @NgModule({
-  declarations: [PostsListComponent, PostCreateComponent, ImagePickerComponent],
+  declarations: [
+    PostsListComponent,
+    PostCreateComponent,
+    ImagePickerComponent,
+    PostDatePipe,
+  ],
   imports: [
     CommonModule,
     AngularMaterialModule,
