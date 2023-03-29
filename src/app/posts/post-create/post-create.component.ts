@@ -9,7 +9,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
 
-import { Post } from '../interfaces/post';
+import { Post } from '../interfaces/post.interface';
 import { mimeTipeValidator } from '../validators/mime-type.validator';
 
 enum Modes {

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 
-import { Post, PostsListResponse } from '../posts/interfaces/post';
+import { Post, PostsListResponse } from '../posts/interfaces/post.interface';
 
 @Injectable({ providedIn: 'root' })
 export class PostsApiService {

@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AngularMaterialModule } from '../angular-material.module';
-import { HeaderComponent } from '../header/header.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
-  declarations: [HeaderComponent, SnackbarComponent],
+  declarations: [NotFoundComponent, SnackbarComponent, ConfirmDialogComponent],
   imports: [CommonModule, RouterModule, AngularMaterialModule],
-  exports: [HeaderComponent],
 })
 export class SharedModule {}

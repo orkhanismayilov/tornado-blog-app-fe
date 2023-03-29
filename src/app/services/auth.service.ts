@@ -10,7 +10,7 @@ import {
   AuthResponse,
   SignUpData,
   User,
-} from '../auth/interfaces/user';
+} from '../auth/interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

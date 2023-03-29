@@ -3,14 +3,14 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 
 import { filter, Observable, takeUntil, tap } from 'rxjs';
-import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { AbstractComponent } from 'src/app/shared/components/abstract.component';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
-import { PaginatorConfig } from '../interfaces/paginator';
-import { Post } from '../interfaces/post';
+import { PaginatorConfig } from '../interfaces/paginator.interface';
+import { Post } from '../interfaces/post.interface';
 
 @Component({
   selector: 'app-posts-list',

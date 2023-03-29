@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { PostsApiService } from '../api/posts-api.service';
-import { PaginatorConfig } from '../posts/interfaces/paginator';
-import { Post, PostsListResponse } from '../posts/interfaces/post';
+import { PaginatorConfig } from '../posts/interfaces/paginator.interface';
+import { Post, PostsListResponse } from '../posts/interfaces/post.interface';
 import { LoaderService } from './loader.service';
 
 @Injectable({ providedIn: 'root' })
