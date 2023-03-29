@@ -6,10 +6,7 @@
     >{{ data.isError ? 'error' : 'check' }}</mat-icon
   >
   <span class="snackbar__message">{{ data.message }}</span>
-  <button
-    mat-icon-button
-    disableRipple="true"
-    class="snackbar__close">
+  <button class="snackbar__close">
     <mat-icon
       class="icon-24"
       (click)="onClose()"

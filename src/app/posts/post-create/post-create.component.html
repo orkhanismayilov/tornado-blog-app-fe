@@ -3,7 +3,7 @@
     <h2 class="mat-title">Create Post</h2>
     <mat-spinner
       *ngIf="loaderService.isLoading$ | async; else loaded"
-      class="center-x"></mat-spinner>
+      class="mx-auto"></mat-spinner>
     <ng-template #loaded>
       <form
         [formGroup]="form"

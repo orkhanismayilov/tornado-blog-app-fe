@@ -62,10 +62,6 @@ h1.page-title {
   text-align: center;
 }
 
-.center-x {
-  margin: 0 auto;
-}
-
 mat-form-field {
   width: 100%;
 }
@@ -75,10 +71,16 @@ mat-form-field {
 }
 
 .snackbar-container {
-  position: relative;
-  padding: 0 !important;
-  background-color: var(--bg-light);
-  overflow: hidden;
+  .mdc-snackbar__label {
+    padding: 0;
+  }
+
+  .mdc-snackbar__surface {
+    position: relative;
+    padding: 0 !important;
+    background-color: var(--bg-light) !important;
+    overflow: hidden;
+  }
 }
 
 .generate-icon-sizes(16);
@@ -96,9 +98,10 @@ mat-form-field {
 
 :-webkit-autofill,
 :-webkit-autofill:hover,
-:-webkit-autofill:focus {
+:-webkit-autofill:focus,
+:-webkit-autofill:active {
   -webkit-text-fill-color: #ffffff;
   box-shadow: 0 0 0px 1000px transparent inset;
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s !important;
 }
