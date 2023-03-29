@@ -4,8 +4,8 @@ import { Validators } from '@angular/forms';
 import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
 
 import { AbstractAuthComponent } from '../abstract/abstract-auth-component';
-import { Fieldsets } from '../interfaces/fieldsets';
-import { SignUpData } from '../interfaces/user';
+import { Fieldsets } from '../interfaces/fieldsets.interface';
+import { SignUpData } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-signup',
