@@ -3,7 +3,7 @@
     <h1 class="page-title">Latest Posts</h1>
     <mat-spinner
       *ngIf="loaderService.isLoading$ | async; else loaded"
-      class="center-x"></mat-spinner>
+      class="mx-auto"></mat-spinner>
     <ng-template #loaded>
       <div
         *ngIf="(posts$ | async).length; else noPosts"
@@ -17,12 +17,14 @@
               mat-card-image
               [src]="post.imagePath"
               [alt]="post.title" />
-            <ul class="post__meta-data">
-              <li>By {{ post.author.fullName }}</li>
-              <li>{{ post.createdAt | date : 'dd.MM.yyyy HH:mm' }}</li>
-            </ul>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-            <mat-card-subtitle>{{ post.content.substring(0, 300) }}</mat-card-subtitle>
+            <mat-card-content>
+              <ul class="post__meta-data">
+                <li>By {{ post.author.fullName }}</li>
+                <li>{{ post.createdAt | date : 'dd.MM.yyyy HH:mm' }}</li>
+              </ul>
+              <mat-card-title>{{ post.title }}</mat-card-title>
+              <mat-card-subtitle>{{ post.content.substring(0, 300) }}</mat-card-subtitle>
+            </mat-card-content>
           </mat-card>
           <ul
             *ngIf="(isAuthenticated$ | async) && post.author.id === userId"
