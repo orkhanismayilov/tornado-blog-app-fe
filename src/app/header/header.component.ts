@@ -16,7 +16,7 @@ export class HeaderComponent {
     return this.authService.isAuthenticated$;
   }
   get userInitials(): string {
-    return this.authService.userInitials;
+    return this.authService.userData.initials;
   }
 
   constructor(private authService: AuthService) {}
