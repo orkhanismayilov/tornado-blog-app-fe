@@ -39,7 +39,7 @@ export class PostComponent implements OnInit {
         filter(paramMap => paramMap.has('id')),
         switchMap(paramMap => {
           this.loaderService.isLoading$.next(true);
-          return this.postsApi.getPost(paramMap.get('id'));
+          return this.postsApi.getPost(paramMap.get('id'), 5);
         }),
         tap(post => {
           this.post = post;
