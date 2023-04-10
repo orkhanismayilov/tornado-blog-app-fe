@@ -1,0 +1,7 @@
+<h2
+  #title
+  (input)="onChange(titleElem.nativeElement.innerText)"
+  (blur)="onTouched()"
+  (paste)="onPaste($event)"
+  [innerText]="value"
+  contenteditable="true"></h2>
