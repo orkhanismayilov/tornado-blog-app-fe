@@ -15,10 +15,12 @@ export class PostsApiService {
     return this.http.get<PostsListResponse>(env.api.posts, { params });
   }
 
-  getPost(id: string, getRelated: number = 3): Observable<Post> {
-    return this.http.get<Post>(`${env.api.posts}/${id}`, {
-      params: { getRelated },
-    });
+  getPost(id: string, getRelated?: number): Observable<Post> {
+    let params: HttpParams = null;
+    if (getRelated) {
+      params = new HttpParams().set('getRelated', getRelated);
+    }
+    return this.http.get<Post>(`${env.api.posts}/${id}`, { params });
   }
 
   addPost(data: Post | FormData): Observable<Post> {

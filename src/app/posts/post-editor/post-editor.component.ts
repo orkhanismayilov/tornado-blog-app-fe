@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,33 +12,32 @@ import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
 import { Post } from '../interfaces/post.interface';
 import { mimeTipeValidator } from '../validators/mime-type.validator';
 
-enum Modes {
+enum Mode {
   Create = 'create',
   Edit = 'edit',
 }
 
 @Component({
-  selector: 'app-post-create',
-  templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.less'],
+  selector: 'app-post-editor',
+  templateUrl: './post-editor.component.html',
+  styleUrls: ['./post-editor.component.less'],
 })
-export class PostCreateComponent implements OnInit {
-  Modes = Modes;
-
+export class PostEditorComponent implements OnInit {
+  Mode = Mode;
   form: FormGroup;
 
   private errorsMap: FormErrors = {
     title: {
       required: 'Title is required',
-      maxlength: 'Enter at least 3 characters',
+      minlength: 'Enter at least 3 characters',
     },
     content: {
       required: 'Content is required',
-      maxlength: 'Enter at least 3 characters',
+      minLengthError: 'Enter at least 3 characters',
     },
   };
 
-  mode: Modes = Modes.Create;
+  mode: Mode = Mode.Create;
   editingPost: Post;
 
   private get validators() {
@@ -52,6 +51,7 @@ export class PostCreateComponent implements OnInit {
     private postsService: PostsService,
     private postsApi: PostsApiService,
     private authService: AuthService,
+    private cdr: ChangeDetectorRef,
     public loaderService: LoaderService,
   ) {}
 
@@ -79,7 +79,7 @@ export class PostCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.invalid) return;
-    if (this.mode === Modes.Create) {
+    if (this.mode === Mode.Create) {
       this.loaderService.isLoading$.next(true);
       this.postsService.addPost(this.form.value);
     } else {
@@ -101,19 +101,22 @@ export class PostCreateComponent implements OnInit {
   }
 
   getErrorMessage(fieldName: string): string {
-    const errorKey = Object.keys(this.form.get(fieldName).errors ?? {})[0];
-    return this.errorsMap[fieldName][errorKey];
+    const control = this.form.get(fieldName);
+    const errorKey = Object.keys(control.errors ?? {})[0];
+    return control.touched ? this.errorsMap[fieldName][errorKey] : null;
   }
 
   private setMode(post: Post): void {
     if (post) {
-      this.mode = Modes.Edit;
+      this.mode = Mode.Edit;
       this.editingPost = post;
       this.form.setValue({
         title: post.title,
         image: post.imagePath,
         content: post.content,
       });
+      this.form.markAsPristine();
+
       return;
     }
     this.router.navigate(['/create']);

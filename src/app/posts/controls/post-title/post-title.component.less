@@ -1,0 +1,47 @@
+:host {
+  --padding: 0.25rem 0.5rem;
+  cursor: text;
+
+  &.ng-touched.ng-invalid {
+    h2 {
+      padding: var(--padding);
+      outline-color: var(--clr-error);
+    }
+  }
+
+  &:focus-within.ng-dirty.ng-valid {
+    h2 {
+      padding: var(--padding);
+      outline-color: var(--clr-success);
+    }
+  }
+}
+
+h2 {
+  font-family: var(--page-title-ff);
+  font-size: var(--page-title-fs);
+  line-height: var(--page-title-lh);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s;
+  outline: 2px solid transparent;
+  will-change: background, padding;
+
+  &:focus {
+    background: var(--bg-light);
+    padding: var(--padding);
+    outline-color: var(--clr-accent);
+  }
+
+  &:empty {
+    &::before {
+      display: block;
+    }
+  }
+
+  &::before {
+    content: attr(data-placeholder);
+    display: none;
+    inset: 0;
+    color: hsl(0 0 50%);
+  }
+}

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './guards/auth.guard';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
+import { PostEditorComponent } from './posts/post-editor/post-editor.component';
 import { PostComponent } from './posts/post/post.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
@@ -13,10 +13,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
-  { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
+  { path: 'create', component: PostEditorComponent, canActivate: [AuthGuard] },
   {
     path: 'edit/:id',
-    component: PostCreateComponent,
+    component: PostEditorComponent,
     canActivate: [AuthGuard],
   },
   { path: 'posts/:id', component: PostComponent },

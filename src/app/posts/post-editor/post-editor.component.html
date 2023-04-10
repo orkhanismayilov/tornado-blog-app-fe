@@ -1,36 +1,34 @@
 <main>
   <div class="container">
-    <h2 class="mat-title">Create Post</h2>
+    <h1
+      *ngIf="this.mode === Mode.Create"
+      class="page-title">
+      Create Post
+    </h1>
     <mat-spinner
       *ngIf="loaderService.isLoading$ | async; else loaded"
       class="mx-auto"></mat-spinner>
     <ng-template #loaded>
       <form
+        class="mb-3"
         [formGroup]="form"
         (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <mat-form-field
-            color="accent"
-            appearance="fill">
-            <mat-label>Title</mat-label>
-            <input
-              matInput
-              formControlName="title"
-              type="text" />
-            <mat-error>{{ getErrorMessage('title') }}</mat-error>
-          </mat-form-field>
+        <div class="form-group mb-4">
+          <app-post-title
+            placeholder="Post Title"
+            formControlName="title"></app-post-title>
+          <mat-error>{{ getErrorMessage('title') }}</mat-error>
         </div>
-        <div class="form-group">
-          <mat-form-field
-            color="accent"
-            appearance="fill">
-            <mat-label>Content</mat-label>
-            <textarea
-              matInput
-              formControlName="content"
-              rows="6"></textarea>
-            <mat-error>{{ getErrorMessage('content') }}</mat-error>
-          </mat-form-field>
+        <div class="form-group mb-3">
+          <quill-editor
+            formControlName="content"
+            placeholder="Post content..."
+            theme="snow"
+            [minLength]="3"
+            [required]="true"
+            [trimOnValidation]="true"
+            [sanitize]="true"></quill-editor>
+          <mat-error>{{ getErrorMessage('content') }}</mat-error>
         </div>
         <hr />
         <app-image-picker
@@ -38,13 +36,13 @@
           [validMimeType]="form.get('image').valid"
           [postImage]="form.get('image').value"
           (imagePicked)="onImagePicked($event)"></app-image-picker>
-        <div class="post-create-actions">
+        <div class="post-editor__actions">
           <button
             mat-flat-button
             type="submit"
             color="accent"
             [disabled]="form.invalid">
-            {{ mode === Modes.Create ? 'Add' : 'Save' }} Post
+            {{ mode === Mode.Create ? 'Add' : 'Save' }} Post
           </button>
           <button
             mat-flat-button
