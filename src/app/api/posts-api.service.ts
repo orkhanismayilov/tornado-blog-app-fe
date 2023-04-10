@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -10,16 +10,15 @@ import { Post, PostsListResponse } from '../posts/interfaces/post.interface';
 export class PostsApiService {
   constructor(private http: HttpClient) {}
 
-  getPostsList(
-    limit: number = 5,
-    page: number = 1,
-  ): Observable<PostsListResponse> {
+  getPostsList(limit: number = 5, page: number = 1): Observable<PostsListResponse> {
     const params = { limit, page };
     return this.http.get<PostsListResponse>(env.api.posts, { params });
   }
 
-  getPost(id: string): Observable<Post> {
-    return this.http.get<Post>(`${env.api.posts}/${id}`);
+  getPost(id: string, getRelated: number = 3): Observable<Post> {
+    return this.http.get<Post>(`${env.api.posts}/${id}`, {
+      params: { getRelated },
+    });
   }
 
   addPost(data: Post | FormData): Observable<Post> {

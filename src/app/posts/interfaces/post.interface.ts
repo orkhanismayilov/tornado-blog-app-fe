@@ -9,6 +9,7 @@ export interface Post {
   author: User;
   createdAt: Date;
   updatedAt: Date;
+  relatedPosts: Post[];
 }
 
 export interface PostsListResponse {

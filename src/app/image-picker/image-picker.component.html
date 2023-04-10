@@ -14,7 +14,7 @@
     <img
       *ngIf="thumbnail && validMimeType"
       class="image-picker__thumbnail"
-      [src]="thumbnail"
+      [src]="thumbnail | safe : 'resourceUrl'"
       [attr.alt]="postTitle" />
     <button
       *ngIf="thumbnail"

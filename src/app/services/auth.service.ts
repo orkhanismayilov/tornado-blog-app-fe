@@ -5,12 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, Subscription, timer } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 
-import {
-  AuthData,
-  AuthResponse,
-  SignUpData,
-  User,
-} from '../auth/interfaces/user.interface';
+import { AuthData, AuthResponse, SignUpData, User } from '../auth/interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -24,8 +19,7 @@ export class AuthService {
     return token || null;
   }
 
-  private isAuthenticatedSubject: BehaviorSubject<boolean> =
-    new BehaviorSubject(!!this.token);
+  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(!!this.token);
   get isAuthenticated$(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
@@ -37,19 +31,11 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem(this.userStorageKey));
     return user;
   }
-  get userInitials(): string {
-    const user = this.userData;
-    return `${user.firstName.charAt(0).toUpperCase()}${user.lastName
-      .charAt(0)
-      .toUpperCase()}`;
-  }
 
   constructor(private http: HttpClient, private router: Router) {
     if (this.isAuthenticated) {
       try {
-        const expirationDate = new Date(
-          localStorage.getItem(this.expirationDateStorageKey),
-        );
+        const expirationDate = new Date(localStorage.getItem(this.expirationDateStorageKey));
         if (expirationDate > new Date()) {
           const expiresIn = (expirationDate.getTime() - Date.now()) / 1000;
           this.setExpirationTimer(expiresIn);
@@ -96,9 +82,7 @@ export class AuthService {
   }
 
   private setExpirationDate(expiresIn: number): void {
-    const expirationDate = new Date(
-      Date.now() + expiresIn * 1000,
-    ).toISOString();
+    const expirationDate = new Date(Date.now() + expiresIn * 1000).toISOString();
     localStorage.setItem(this.expirationDateStorageKey, expirationDate);
   }
 

@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -28,10 +20,10 @@ export class ImagePickerComponent {
   @ViewChild('imagePicker') imagePicker: ElementRef<HTMLElement>;
   @ViewChild('imageInput') imageInput: ElementRef<HTMLInputElement>;
 
-  thumbnail: SafeResourceUrl;
+  thumbnail: string;
   blobname: string;
 
-  constructor(private renderer: Renderer2, private sanitizer: DomSanitizer) {}
+  constructor(private renderer: Renderer2) {}
 
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files[0];
@@ -54,9 +46,7 @@ export class ImagePickerComponent {
   private setThumbnail(file: File): void {
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      this.thumbnail = this.sanitizer.bypassSecurityTrustResourceUrl(
-        fileReader.result as string,
-      );
+      this.thumbnail = fileReader.result as string;
       this.blobname = file.name;
     };
     fileReader.readAsDataURL(file);
