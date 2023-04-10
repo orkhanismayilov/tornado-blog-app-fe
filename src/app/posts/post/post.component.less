@@ -90,6 +90,31 @@
   bottom: 1rem;
   align-self: flex-end;
 
+  h2 {
+    --bg-title: var(--bg-dark);
+    --sticky-offset: 0.5rem;
+    position: sticky;
+    background-color: var(--bg-title);
+    top: var(--sticky-offset);
+    padding-bottom: var(--sticky-offset);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: calc(var(--sticky-offset) * -1) 0 auto 0;
+      height: var(--sticky-offset);
+      background-color: var(--bg-title);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 100% 0 auto 0;
+      height: calc(var(--sticky-offset) * 2);
+      background: linear-gradient(to bottom, var(--bg-title), transparent);
+    }
+  }
+
   &__grid {
     display: grid;
     gap: 2rem;
