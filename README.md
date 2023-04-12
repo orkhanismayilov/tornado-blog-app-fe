@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## URL
 
-https://tornado.3031303.xyz
+https://tornado.ismayilov.site
 
 ## Development server
 
@@ -19,6 +19,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## TODO:
-- Refactor post editor
-- Add HTML editor for post editor
 - Refactor image picker
+- Add meta tags for post page
+- Add featured posts block
+- Add categories
