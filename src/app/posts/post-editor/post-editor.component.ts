@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { filter, switchMap } from 'rxjs';
@@ -8,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
+import { environment } from 'src/environments/environment';
 
 import { Post } from '../interfaces/post.interface';
 import { mimeTipeValidator } from '../validators/mime-type.validator';
@@ -51,7 +53,7 @@ export class PostEditorComponent implements OnInit {
     private postsService: PostsService,
     private postsApi: PostsApiService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef,
+    private titleService: Title,
     public loaderService: LoaderService,
   ) {}
 
@@ -116,9 +118,11 @@ export class PostEditorComponent implements OnInit {
         content: post.content,
       });
       this.form.markAsPristine();
+      this.titleService.setTitle(`Edit Post - ${this.editingPost.title} - ${environment.appName}`);
 
       return;
     }
+
     this.router.navigate(['/create']);
   }
 }
