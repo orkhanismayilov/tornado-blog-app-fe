@@ -1,18 +1,21 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { filter, switchMap, tap } from 'rxjs';
 import { PostsApiService } from 'src/app/api/posts-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { environment } from 'src/environments/environment';
 
 import { Post } from '../interfaces/post.interface';
+import { ExcerptPipe } from '../pipes/excerpt.pipe';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.less'],
+  providers: [ExcerptPipe],
 })
 export class PostComponent implements OnInit {
   post: Post;
@@ -23,6 +26,9 @@ export class PostComponent implements OnInit {
     private postsApi: PostsApiService,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
+    private titleService: Title,
+    private metaService: Meta,
+    private excerptPipe: ExcerptPipe,
     public loaderService: LoaderService,
   ) {
     for (const icon of this.socialIcons) {
@@ -43,9 +49,26 @@ export class PostComponent implements OnInit {
         }),
         tap(post => {
           this.post = post;
+          this.titleService.setTitle(`${this.post.title} - ${environment.appName}`);
+          this.addTags();
+
           this.loaderService.isLoading$.next(false);
         }),
       )
       .subscribe();
+  }
+
+  private addTags(): void {
+    this.metaService.addTags([
+      { name: 'robots', property: 'index,follow,max-image-preview:large' },
+      { name: 'author', property: this.post.author.fullName },
+      {
+        name: 'description',
+        property: `${this.excerptPipe.transform(this.post.content, 300)}...`,
+      },
+      { property: 'article:published_time', content: new Date(this.post.createdAt).toISOString() },
+      // TODO: Update when author page is implemented
+      // { property: 'article:author', content: '' },
+    ]);
   }
 }

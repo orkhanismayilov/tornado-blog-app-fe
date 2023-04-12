@@ -6,6 +6,7 @@ const apiUrl = 'http://localhost:3000/api';
 
 export const environment = {
   production: false,
+  appName: 'Tornado Blog',
   api: {
     posts: `${apiUrl}/posts`,
     auth: `${apiUrl}/auth`,
