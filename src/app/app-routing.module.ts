@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
 
-import { AuthGuard } from './guards/auth.guard';
+import { authGuard } from './guards/auth.guard';
 import { PostEditorComponent } from './posts/post-editor/post-editor.component';
 import { PostComponent } from './posts/post/post.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
@@ -18,13 +18,13 @@ const routes: Routes = [
   {
     path: 'create',
     component: PostEditorComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     title: `Create Post - ${environment.appName}`,
   },
   {
     path: 'edit/:id',
     component: PostEditorComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
   { path: 'posts/:id', component: PostComponent },
   { path: '404', component: NotFoundComponent, title: `404 Not Found - ${environment.appName}` },

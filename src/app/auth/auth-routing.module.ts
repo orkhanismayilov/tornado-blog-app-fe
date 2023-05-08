@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
 
-import { AuthGuard } from '../guards/auth.guard';
+import { authGuard } from '../guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard], title: `Login - ${environment.appName}` },
-  { path: 'signup', component: SignupComponent, canActivate: [AuthGuard], title: `Sign Up - ${environment.appName}` },
+  { path: 'login', component: LoginComponent, canActivate: [authGuard], title: `Login - ${environment.appName}` },
+  { path: 'signup', component: SignupComponent, canActivate: [authGuard], title: `Sign Up - ${environment.appName}` },
 ];
 
 @NgModule({
