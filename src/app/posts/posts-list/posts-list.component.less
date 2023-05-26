@@ -1,7 +1,8 @@
 .posts-grid {
+  --columns: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: 1.5rem;
 }
 
 .post {
@@ -10,11 +11,6 @@
   cursor: pointer;
   transition: all 0.3s;
   will-change: transform;
-
-  &:nth-child(4n),
-  &:nth-child(4n + 1) {
-    grid-column: span 2;
-  }
 
   &:hover {
     transform: translate3d(0, -5px, 0);
@@ -103,4 +99,23 @@ mat-card-footer {
   border-top: 1px solid fade(#000, 45%);
   display: flex;
   padding: 0 1rem;
+}
+
+@media (min-width: 720px) {
+  .posts-grid {
+    --columns: 2;
+  }
+}
+
+@media (min-width: 992px) {
+  .posts-grid {
+    --columns: 3;
+  }
+
+  .post {
+    &:nth-child(4n),
+    &:nth-child(4n + 1) {
+      grid-column: span calc(var(--columns) - 1);
+    }
+  }
 }
