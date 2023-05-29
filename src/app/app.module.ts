@@ -8,9 +8,8 @@ import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { PostsModule } from './posts/posts.module';
-import { AuthInterceptor } from './services/auth.interceptor';
-import { ErrorInterceptor } from './services/error.interceptor';
+import { PostsModule } from './posts';
+import { AuthInterceptor, ErrorInterceptor } from './services';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({

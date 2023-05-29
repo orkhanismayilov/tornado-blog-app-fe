@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 
 import { filter, takeUntil, tap } from 'rxjs';
 
-import { AbstractComponent } from './shared/components/abstract.component';
+import { AbstractComponent } from './shared';
 
 @Component({
   selector: 'app-root',
@@ -22,10 +22,7 @@ export class AppComponent extends AbstractComponent implements OnInit {
     this.router.events
       .pipe(
         filter(e => e instanceof NavigationEnd),
-        tap(
-          (e: NavigationEnd) =>
-            (this.showHeader = !this.hideHeaderForPaths.includes(e.url)),
-        ),
+        tap((e: NavigationEnd) => (this.showHeader = !this.hideHeaderForPaths.includes(e.url))),
         takeUntil(this.destroyed$),
       )
       .subscribe();

@@ -1,25 +1,10 @@
-import {
-  Component,
-  HostListener,
-  Inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { SnackbarService } from '@tba/services';
 
-import {
-  filter,
-  interval,
-  map,
-  Subject,
-  Subscription,
-  takeUntil,
-  tap,
-  timeInterval,
-} from 'rxjs';
-import { SnackbarService } from 'src/app/services/snackbar.service';
+import { filter, interval, map, Subject, Subscription, takeUntil, tap, timeInterval } from 'rxjs';
 
-import { SnackbarData } from '../../interfaces/snackbar.interface.';
+import { SnackbarData } from '../../interfaces';
 
 @Component({
   templateUrl: './snackbar.component.html',
@@ -38,10 +23,7 @@ export class SnackbarComponent implements OnInit, OnDestroy {
     this.setTimer();
   }
 
-  constructor(
-    private snackbarService: SnackbarService,
-    @Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData,
-  ) {}
+  constructor(private snackbarService: SnackbarService, @Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData) {}
 
   ngOnInit(): void {
     if (this.data.duration) {
@@ -62,9 +44,7 @@ export class SnackbarComponent implements OnInit, OnDestroy {
       .pipe(
         timeInterval(),
         map(i => (this.timeElapsed += i.interval)),
-        tap(
-          _ => (this.progress = (this.timeElapsed / this.data.duration) * 100),
-        ),
+        tap(_ => (this.progress = (this.timeElapsed / this.data.duration) * 100)),
         filter(timePassed => timePassed >= this.data.duration),
         tap(_ => this.onClose()),
         takeUntil(this.paused$),

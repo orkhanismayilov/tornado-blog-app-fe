@@ -1,6 +1,5 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-
-import { environment } from 'src/environments/environment';
+import { environment as env } from '@tba/env';
 
 export const fileSizeValidator = (control: AbstractControl): ValidationErrors | null => {
   if (!(control.value instanceof File)) {
@@ -8,7 +7,7 @@ export const fileSizeValidator = (control: AbstractControl): ValidationErrors | 
   }
 
   const file: File = control.value;
-  const maxFileSize = environment.maxFileSize * Math.pow(1024, 2); // MB
+  const maxFileSize = env.maxFileSize * Math.pow(1024, 2); // MB
 
   if (file.size > maxFileSize) {
     return { fileSize: true };

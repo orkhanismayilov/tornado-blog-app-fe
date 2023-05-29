@@ -1,4 +1,4 @@
-import { User } from 'src/app/auth/interfaces/user.interface';
+import { User } from '@tba/auth';
 
 export interface Post {
   id?: string;

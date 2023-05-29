@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@tba/services';
 
 import { Observable } from 'rxjs';
-
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',

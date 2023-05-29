@@ -12,11 +12,18 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
-    "useDefineForClassFields": false
+    "lib": ["es2020", "dom"],
+    "useDefineForClassFields": false,
+    "paths": {
+      "@tba/app": ["src/app/"],
+      "@tba/env": ["src/environments"],
+      "@tba/api": ["src/app/api"],
+      "@tba/auth": ["src/app/auth"],
+      "@tba/guards": ["src/app/guards"],
+      "@tba/services": ["src/app/services"],
+      "@tba/shared": ["src/app/shared"],
+      "@tba/posts": ["src/app/posts"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

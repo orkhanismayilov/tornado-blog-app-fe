@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { PostsApiService } from '@tba/api';
+import { environment } from '@tba/env';
+import { LoaderService } from '@tba/services';
 
 import { filter, switchMap, tap } from 'rxjs';
-import { PostsApiService } from 'src/app/api/posts-api.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { environment } from 'src/environments/environment';
 
-import { Post } from '../interfaces/post.interface';
-import { ExcerptPipe } from '../pipes/excerpt.pipe';
+import { Post } from '../interfaces';
+import { ExcerptPipe } from '../pipes';
 
 @Component({
   selector: 'app-post',
