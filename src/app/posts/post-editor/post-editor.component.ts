@@ -2,18 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PostsApiService } from '@tba/api';
+import { environment } from '@tba/env';
+import { AuthService, LoaderService, PostsService } from '@tba/services';
+import { FormErrors } from '@tba/shared';
 
 import { filter, switchMap, tap } from 'rxjs';
-import { PostsApiService } from 'src/app/api/posts-api.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { PostsService } from 'src/app/services/posts.service';
-import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
-import { environment } from 'src/environments/environment';
 
-import { Post } from '../interfaces/post.interface';
-import { fileSizeValidator } from '../validators/file-size.validator';
-import { mimeTipeValidator } from '../validators/mime-type.validator';
+import { Post } from '../interfaces';
+import { fileSizeValidator, mimeTipeValidator } from '../validators';
 
 enum Mode {
   CREATE = 'create',

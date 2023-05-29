@@ -3,11 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
 
-import { authGuard } from './guards/auth.guard';
-import { PostEditorComponent } from './posts/post-editor/post-editor.component';
-import { PostComponent } from './posts/post/post.component';
-import { PostsListComponent } from './posts/posts-list/posts-list.component';
-import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { authGuard } from './guards';
+import { PostComponent, PostEditorComponent, PostsListComponent } from './posts';
+import { NotFoundComponent } from './shared';
 
 const routes: Routes = [
   { path: '', component: PostsListComponent, pathMatch: 'full', title: environment.appName },

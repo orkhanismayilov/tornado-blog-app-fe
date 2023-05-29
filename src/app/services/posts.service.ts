@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { PostsApiService } from '@tba/api';
+import { PaginatorConfig, Post, PostsListResponse } from '@tba/posts';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { PostsApiService } from '../api/posts-api.service';
-import { PaginatorConfig } from '../posts/interfaces/paginator.interface';
-import { Post, PostsListResponse } from '../posts/interfaces/post.interface';
 import { LoaderService } from './loader.service';
 
 @Injectable({ providedIn: 'root' })
@@ -16,15 +15,13 @@ export class PostsService {
     return this.postsSubject.value;
   }
 
-  private paginatorConfigSubject: BehaviorSubject<PaginatorConfig> =
-    new BehaviorSubject({
-      limit: 20,
-      limitOptions: [5, 10, 20, 50],
-      currentPage: 1,
-      total: 0,
-    });
-  paginatorConfig$: Observable<PaginatorConfig> =
-    this.paginatorConfigSubject.asObservable();
+  private paginatorConfigSubject: BehaviorSubject<PaginatorConfig> = new BehaviorSubject({
+    limit: 20,
+    limitOptions: [5, 10, 20, 50],
+    currentPage: 1,
+    total: 0,
+  });
+  paginatorConfig$: Observable<PaginatorConfig> = this.paginatorConfigSubject.asObservable();
   set paginatorConfig(config: Partial<PaginatorConfig>) {
     this.paginatorConfigSubject.next({
       ...this.paginatorConfig,
@@ -35,32 +32,23 @@ export class PostsService {
     return this.paginatorConfigSubject.value;
   }
 
-  constructor(
-    private postsApi: PostsApiService,
-    private router: Router,
-    private loaderService: LoaderService,
-  ) {}
+  constructor(private postsApi: PostsApiService, private router: Router, private loaderService: LoaderService) {}
 
-  fetchPosts(
-    limit: number = this.paginatorConfig.limit,
-    page: number = 1,
-  ): void {
+  fetchPosts(limit: number = this.paginatorConfig.limit, page: number = 1): void {
     this.paginatorConfig = { limit, currentPage: page };
-    this.postsApi
-      .getPostsList(limit, page)
-      .subscribe((res: PostsListResponse) => {
-        this.loaderService.isLoading$.next(false);
-        this.postsSubject.next(
-          res.data.map(post => ({
-            ...post,
-            imagePath: post.imagePath,
-          })),
-        );
-        this.paginatorConfigSubject.next({
-          ...this.paginatorConfigSubject.value,
-          total: res.total,
-        });
+    this.postsApi.getPostsList(limit, page).subscribe((res: PostsListResponse) => {
+      this.loaderService.isLoading$.next(false);
+      this.postsSubject.next(
+        res.data.map(post => ({
+          ...post,
+          imagePath: post.imagePath,
+        })),
+      );
+      this.paginatorConfigSubject.next({
+        ...this.paginatorConfigSubject.value,
+        total: res.total,
       });
+    });
   }
 
   addPost(post: Post): void {
@@ -81,10 +69,7 @@ export class PostsService {
 
   deletePost(id: string): void {
     this.postsApi.deletePost(id).subscribe(() => {
-      this.fetchPosts(
-        this.paginatorConfig.limit,
-        this.paginatorConfig.currentPage,
-      );
+      this.fetchPosts(this.paginatorConfig.limit, this.paginatorConfig.currentPage);
     });
   }
 

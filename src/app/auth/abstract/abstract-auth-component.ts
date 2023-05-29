@@ -1,12 +1,10 @@
 import { Directive, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService, LoaderService } from '@tba/services';
+import { FormErrors } from '@tba/shared';
 
-import { AuthService } from 'src/app/services/auth.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
-
-import { Fieldsets } from '../interfaces/fieldsets.interface';
+import { Fieldsets } from '../interfaces';
 
 @Directive()
 export abstract class AbstractAuthComponent implements OnInit {
@@ -18,11 +16,7 @@ export abstract class AbstractAuthComponent implements OnInit {
     return [Validators.required, Validators.email];
   }
   protected get passwordValidators() {
-    return [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(32),
-    ];
+    return [Validators.required, Validators.minLength(8), Validators.maxLength(32)];
   }
 
   constructor(

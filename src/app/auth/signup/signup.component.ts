@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
-
-import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
+import { FormErrors } from '@tba/shared';
 
 import { AbstractAuthComponent } from '../abstract/abstract-auth-component';
-import { Fieldsets } from '../interfaces/fieldsets.interface';
-import { SignUpData } from '../interfaces/user.interface';
+import { Fieldsets, SignUpData } from '../interfaces';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: [
-    '../abstract/abstract-auth-component.less',
-    './signup.component.less',
-  ],
+  styleUrls: ['../abstract/abstract-auth-component.less', './signup.component.less'],
 })
 export class SignupComponent extends AbstractAuthComponent {
   fieldsets: Fieldsets = {

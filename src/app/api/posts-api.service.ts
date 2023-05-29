@@ -1,10 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment as env } from '@tba/env';
+import { Post, PostsListResponse } from '@tba/posts';
 
 import { Observable } from 'rxjs';
-import { environment as env } from 'src/environments/environment';
-
-import { Post, PostsListResponse } from '../posts/interfaces/post.interface';
 
 @Injectable({ providedIn: 'root' })
 export class PostsApiService {

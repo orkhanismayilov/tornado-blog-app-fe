@@ -9,11 +9,6 @@ import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [LoginComponent, SignupComponent],
-  imports: [
-    CommonModule,
-    AngularMaterialModule,
-    ReactiveFormsModule,
-    AuthRoutingModule,
-  ],
+  imports: [CommonModule, AngularMaterialModule, ReactiveFormsModule, AuthRoutingModule],
 })
 export class AuthModule {}

@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthData, AuthResponse, SignUpData, User } from '@tba/auth';
+import { environment as env } from '@tba/env';
 
 import { BehaviorSubject, map, Observable, Subscription, timer } from 'rxjs';
-import { environment as env } from 'src/environments/environment';
-
-import { AuthData, AuthResponse, SignUpData, User } from '../auth/interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
