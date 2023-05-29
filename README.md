@@ -9,9 +9,3 @@ https://tornado.ismayilov.site
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## TODO:
-- Refactor image picker
-- Add meta tags for post page
-- Add featured posts block
-- Add categories
