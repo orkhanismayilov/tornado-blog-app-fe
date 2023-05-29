@@ -1,23 +1,23 @@
 <div
   class="image-picker"
-  [title]="blobname ?? 'Add image'"
-  #imagePicker>
+  [title]="blobname ?? 'Add image'">
   <div
     class="image-picker__image-wrapper"
-    [class.image-picker__image-wrapper--picked]="thumbnail && validMimeType"
+    [class.image-picker__image-wrapper--picked]="thumbnail && valid"
     (click)="imageInput.click()">
-    <mat-icon
-      *ngIf="!thumbnail || !validMimeType"
-      class="image-picker__icon"
-      >add</mat-icon
-    >
+    <div
+      *ngIf="!thumbnail || !valid"
+      class="image-picker__placeholder">
+      <mat-icon class="image-picker__placeholder-icon">add</mat-icon>
+      <p class="image-picker__placeholder-text">Select Title Image</p>
+    </div>
     <img
-      *ngIf="thumbnail && validMimeType"
+      *ngIf="thumbnail && valid"
       class="image-picker__thumbnail"
       [src]="thumbnail | safe : 'resourceUrl'"
       [attr.alt]="postTitle" />
     <button
-      *ngIf="thumbnail"
+      *ngIf="thumbnail && valid"
       mat-icon-button
       class="image-picker__btn-remove"
       (click)="onRemoveImage($event)">
@@ -25,7 +25,7 @@
     </button>
   </div>
   <span
-    *ngIf="blobname"
+    *ngIf="blobname && valid"
     class="image-picker__blobname"
     >{{ blobname }}</span
   >

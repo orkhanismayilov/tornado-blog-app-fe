@@ -1,24 +1,32 @@
 <main>
   <div class="container">
-    <h1
-      *ngIf="this.mode === Mode.Create"
-      class="page-title">
-      Create Post
-    </h1>
-    <mat-spinner
-      *ngIf="loaderService.isLoading$ | async; else loaded"
-      class="mx-auto"></mat-spinner>
-    <ng-template #loaded>
+    <div
+      class="post-editor"
+      *ngIf="!(loaderService.isLoading$ | async); else loading">
+      <h1
+        *ngIf="this.mode === Mode.CREATE"
+        class="page-title">
+        Create Post
+      </h1>
       <form
         class="mb-3"
         [formGroup]="form"
         (ngSubmit)="onSubmit()">
+        <div class="form-group mb-4">
+          <app-image-picker
+            formControlName="image"
+            [postTitle]="form.value.title"
+            [valid]="form.controls.image.valid"></app-image-picker>
+          <mat-error>{{ getErrorMessage('image') }}</mat-error>
+        </div>
+
         <div class="form-group mb-4">
           <app-post-title
             placeholder="Post Title"
             formControlName="title"></app-post-title>
           <mat-error>{{ getErrorMessage('title') }}</mat-error>
         </div>
+
         <div class="form-group mb-3">
           <quill-editor
             formControlName="content"
@@ -30,19 +38,14 @@
             [sanitize]="true"></quill-editor>
           <mat-error>{{ getErrorMessage('content') }}</mat-error>
         </div>
-        <hr />
-        <app-image-picker
-          [postTitle]="form.value.title"
-          [validMimeType]="form.get('image').valid"
-          [postImage]="form.get('image').value"
-          (imagePicked)="onImagePicked($event)"></app-image-picker>
+
         <div class="post-editor__actions">
           <button
             mat-flat-button
             type="submit"
             color="accent"
             [disabled]="form.invalid">
-            {{ mode === Mode.Create ? 'Add' : 'Save' }} Post
+            {{ mode === Mode.CREATE ? 'Add' : 'Save' }} Post
           </button>
           <button
             mat-flat-button
@@ -53,6 +56,10 @@
           </button>
         </div>
       </form>
+    </div>
+
+    <ng-template #loading>
+      <mat-spinner class="mx-auto"></mat-spinner>
     </ng-template>
   </div>
 </main>
