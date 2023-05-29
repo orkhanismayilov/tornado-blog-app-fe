@@ -2,45 +2,70 @@ input[type='file'] {
   display: none;
 }
 
+:host {
+  &.ng-touched.ng-invalid {
+    .image-picker__image-wrapper {
+      border-color: var(--clr-error);
+    }
+  }
+
+  &.ng-dirty.ng-valid {
+    .image-picker__image-wrapper {
+      border-color: var(--clr-success);
+    }
+  }
+}
+
 .image-picker {
-  width: 200px;
-  margin: 1.5rem 0;
+  width: 100%;
 
   &__image-wrapper {
+    --height: 200px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 100%;
-    height: 200px;
-    margin-bottom: .5rem;
+    height: var(--height);
+    margin-bottom: 0.5rem;
     border-radius: 5px;
     border: 2px dashed #cccccc;
-    transition: border-color .2s;
+    transition: border-color 0.2s, height 0.3s ease-in-out;
     overflow: hidden;
     cursor: pointer;
 
     &--picked {
       border: none;
+      height: calc(var(--height) * 2);
     }
 
     &:hover {
       border-color: #ffffff;
 
-      .image-picker__icon {
+      .image-picker__placeholder {
         color: #ffffff;
       }
     }
   }
 
-  &__icon {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    top: 50%;
-    left: 50%;
-    font-size: 32px;
-    transform: translate(-50%, -50%);
-    color: #cccccc;
-    transition: color .2s;
+  &__placeholder {
+    display: grid;
+    place-items: center;
+    gap: 0.5rem;
+    color: #ccc;
+    transition: color 0.2s;
+
+    &-icon {
+      --icon-size: 32px;
+      width: var(--icon-size);
+      height: var(--icon-size);
+      font-size: var(--icon-size);
+    }
+
+    &-text {
+      font-size: 1.2rem;
+      margin: 0;
+    }
   }
 
   &__thumbnail {

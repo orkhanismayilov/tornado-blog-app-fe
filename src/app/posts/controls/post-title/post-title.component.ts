@@ -17,13 +17,13 @@ export class PostTitleComponent implements ControlValueAccessor, OnInit {
   @Input('placeholder') placeholder: string = 'Title';
   @ViewChild('title', { static: true }) titleElem: ElementRef<HTMLHeadingElement>;
 
-  private innerValue: string = '';
+  private _value: string = '';
   get value(): string {
-    return this.innerValue;
+    return this._value;
   }
   set value(value: string) {
-    if (value !== this.innerValue) {
-      this.innerValue = value;
+    if (value !== this._value) {
+      this._value = value;
       this.onChange(value);
     }
   }
@@ -36,8 +36,8 @@ export class PostTitleComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  onChange: (_: any) => {};
-  onTouched: () => {};
+  onChange = (_: any) => {};
+  onTouched = () => {};
 
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { filter, switchMap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 import { PostsApiService } from 'src/app/api/posts-api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -15,8 +15,8 @@ import { Post } from '../interfaces/post.interface';
 import { mimeTipeValidator } from '../validators/mime-type.validator';
 
 enum Mode {
-  Create = 'create',
-  Edit = 'edit',
+  CREATE = 'create',
+  EDIT = 'edit',
 }
 
 @Component({
@@ -37,9 +37,13 @@ export class PostEditorComponent implements OnInit {
       required: 'Content is required',
       minLengthError: 'Enter at least 3 characters',
     },
+    image: {
+      required: 'Title image is required',
+      mimeType: 'Invalid file type! Only png, jpg, jpeg, webp, svg are allowed.',
+    },
   };
 
-  mode: Mode = Mode.Create;
+  mode: Mode = Mode.CREATE;
   editingPost: Post;
 
   private get validators() {
@@ -67,6 +71,7 @@ export class PostEditorComponent implements OnInit {
     this.route.paramMap
       .pipe(
         filter(paramMap => paramMap.has('id')),
+        tap(() => this.loaderService.isLoading$.next(true)),
         switchMap(paramMap => this.postsApi.getPost(paramMap.get('id'))),
         filter(post => {
           if (post.author.id !== this.authService.userData.id) {
@@ -75,13 +80,14 @@ export class PostEditorComponent implements OnInit {
           }
           return true;
         }),
+        tap(() => this.loaderService.isLoading$.next(false)),
       )
       .subscribe(post => this.setMode(post));
   }
 
   onSubmit(): void {
     if (this.form.invalid) return;
-    if (this.mode === Mode.Create) {
+    if (this.mode === Mode.CREATE) {
       this.loaderService.isLoading$.next(true);
       this.postsService.addPost(this.form.value);
     } else {
@@ -98,26 +104,24 @@ export class PostEditorComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  onImagePicked(image: File): void {
-    this.form.patchValue({ image });
-  }
-
   getErrorMessage(fieldName: string): string {
     const control = this.form.get(fieldName);
     const errorKey = Object.keys(control.errors ?? {})[0];
-    return control.touched ? this.errorsMap[fieldName][errorKey] : null;
+    return control.touched ? this.errorsMap[fieldName]?.[errorKey] : null;
   }
 
   private setMode(post: Post): void {
     if (post) {
-      this.mode = Mode.Edit;
+      this.mode = Mode.EDIT;
       this.editingPost = post;
-      this.form.setValue({
-        title: post.title,
-        image: post.imagePath,
-        content: post.content,
-      });
-      this.form.markAsPristine();
+      this.form.setValue(
+        {
+          title: post.title,
+          image: post.imagePath,
+          content: post.content,
+        },
+        { emitEvent: false },
+      );
       this.titleService.setTitle(`Edit Post - ${this.editingPost.title} - ${environment.appName}`);
 
       return;

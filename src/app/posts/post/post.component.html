@@ -1,61 +1,62 @@
 <main>
   <div class="container">
-    <mat-spinner
-      *ngIf="loaderService.isLoading$ | async; else loaded"
-      class="mx-auto"></mat-spinner>
-    <ng-template #loaded>
-      <div class="article-grid">
-        <article class="post">
-          <h1 class="page-title mb-4">{{ post.title }}</h1>
-          <div class="post__meta mb-5">
-            <div class="post__author">
-              <img
-                *ngIf="post.author.avatar; else noAvatar"
-                src="https://picsum.photos/40"
-                [alt]="post.author.fullName" />
-              <ng-template #noAvatar>
-                <div class="post__author-initials">{{ post.author.initials }}</div>
-              </ng-template>
-              <div class="post__author-content">
-                <span>{{ post.author.firstName }} {{ post.author.lastName }}</span>
-                <span>{{ post.createdAt | date : 'dd MMMM yyyy / HH:mm' }}</span>
-              </div>
+    <div
+      class="article-grid"
+      *ngIf="!(loaderService.isLoading$ | async); else loading">
+      <article class="post">
+        <h1 class="page-title mb-4">{{ post.title }}</h1>
+        <div class="post__meta mb-5">
+          <div class="post__author">
+            <img
+              *ngIf="post.author.avatar; else noAvatar"
+              src="https://picsum.photos/40"
+              [alt]="post.author.fullName" />
+            <ng-template #noAvatar>
+              <div class="post__author-initials">{{ post.author.initials }}</div>
+            </ng-template>
+            <div class="post__author-content">
+              <span>{{ post.author.firstName }} {{ post.author.lastName }}</span>
+              <span>{{ post.createdAt | date : 'dd MMMM yyyy / HH:mm' }}</span>
             </div>
-            <ul
-              *ngIf="socialIcons"
-              class="post__share">
-              <li
-                *ngFor="let socialIcon of socialIcons"
-                [shareButton]="$any(socialIcon)">
-                <mat-icon [svgIcon]="socialIcon"></mat-icon>
-              </li>
-            </ul>
           </div>
-          <img
-            class="mb-5"
-            [src]="post.imagePath"
-            [alt]="post.title" />
-          <div
-            class="post__content"
-            [innerHTML]="post.content | safe : 'html'"></div>
-        </article>
+          <ul
+            *ngIf="socialIcons"
+            class="post__share">
+            <li
+              *ngFor="let socialIcon of socialIcons"
+              [shareButton]="$any(socialIcon)">
+              <mat-icon [svgIcon]="socialIcon"></mat-icon>
+            </li>
+          </ul>
+        </div>
+        <img
+          class="mb-5"
+          [src]="post.imagePath"
+          [alt]="post.title" />
+        <div
+          class="post__content"
+          [innerHTML]="post.content | safe : 'html'"></div>
+      </article>
 
-        <div class="related">
-          <h2>Related Posts</h2>
-          <div class="related__grid">
-            <div
-              *ngFor="let relatedPost of post.relatedPosts"
-              [routerLink]="['/posts', relatedPost.id]"
-              class="related__post">
-              <img
-                class="mb-3"
-                [src]="relatedPost.imagePath"
-                [alt]="relatedPost.title" />
-              <h3 class="m-0">{{ relatedPost.title }}</h3>
-            </div>
+      <div class="related">
+        <h2>Related Posts</h2>
+        <div class="related__grid">
+          <div
+            *ngFor="let relatedPost of post.relatedPosts"
+            [routerLink]="['/posts', relatedPost.id]"
+            class="related__post">
+            <img
+              class="mb-3"
+              [src]="relatedPost.imagePath"
+              [alt]="relatedPost.title" />
+            <h3 class="m-0">{{ relatedPost.title }}</h3>
           </div>
         </div>
       </div>
+    </div>
+
+    <ng-template #loading>
+      <mat-spinner class="mx-auto"></mat-spinner>
     </ng-template>
   </div>
 </main>
