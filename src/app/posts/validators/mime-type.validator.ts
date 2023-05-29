@@ -9,6 +9,16 @@ export const mimeTipeValidator = (control: AbstractControl): Observable<Validati
 
   const file: File = control.value;
   const fileReader = new FileReader();
+  const validHeaders = [
+    '89504e47', // PNG
+    'ffd8ffe0', // JPEG
+    'ffd8ffe1',
+    'ffd8ffe2',
+    'ffd8ffe3',
+    'ffd8ffe8',
+    '52494646', // WEBP
+    '3c737667', // SVG
+  ];
   let isValid = false;
 
   const fr$ = new Observable((observer: Observer<{ [key: string]: any }>) => {
@@ -19,20 +29,8 @@ export const mimeTipeValidator = (control: AbstractControl): Observable<Validati
         header += array[i].toString(16);
       }
 
-      switch (header) {
-        case '89504e47':
-          isValid = true;
-          break;
-        case 'ffd8ffe0':
-        case 'ffd8ffe1':
-        case 'ffd8ffe2':
-        case 'ffd8ffe3':
-        case 'ffd8ffe8':
-          isValid = true;
-          break;
-        default:
-          isValid = false;
-          break;
+      if (validHeaders.includes(header)) {
+        isValid = true;
       }
 
       isValid ? observer.next(null) : observer.next({ mimeType: true });
