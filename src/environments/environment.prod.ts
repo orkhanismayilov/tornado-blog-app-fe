@@ -8,4 +8,5 @@ export const environment = {
     posts: `${apiUrl}/posts`,
     auth: `${apiUrl}/auth`,
   },
+  maxFileSize: 10, // MB
 };

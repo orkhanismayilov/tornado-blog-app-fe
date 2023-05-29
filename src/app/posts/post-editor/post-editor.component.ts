@@ -12,6 +12,7 @@ import { FormErrors } from 'src/app/shared/interfaces/form-errors.interface';
 import { environment } from 'src/environments/environment';
 
 import { Post } from '../interfaces/post.interface';
+import { fileSizeValidator } from '../validators/file-size.validator';
 import { mimeTipeValidator } from '../validators/mime-type.validator';
 
 enum Mode {
@@ -40,6 +41,7 @@ export class PostEditorComponent implements OnInit {
     image: {
       required: 'Title image is required',
       mimeType: 'Invalid file type! Only png, jpg, jpeg, webp, svg are allowed.',
+      fileSize: 'Maximum allowed file size is 10MB',
     },
   };
 
@@ -65,7 +67,7 @@ export class PostEditorComponent implements OnInit {
     this.form = this.fb.group({
       title: ['', this.validators],
       content: ['', this.validators],
-      image: [null, [Validators.required], [mimeTipeValidator]],
+      image: [null, [Validators.required, fileSizeValidator], [mimeTipeValidator]],
     });
 
     this.route.paramMap
