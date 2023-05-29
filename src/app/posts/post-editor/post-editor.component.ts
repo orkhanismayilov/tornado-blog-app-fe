@@ -67,7 +67,7 @@ export class PostEditorComponent implements OnInit {
     this.form = this.fb.group({
       title: ['', this.validators],
       content: ['', this.validators],
-      image: [null, [Validators.required], [mimeTipeValidator, fileSizeValidator]],
+      image: [null, [Validators.required, fileSizeValidator], [mimeTipeValidator]],
     });
 
     this.route.paramMap
