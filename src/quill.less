@@ -6,6 +6,7 @@ quill-editor {
   margin-bottom: 0.5rem;
   outline: 2px solid transparent;
   border: 1px solid var(--bg-light);
+  border-radius: var(--border-radius-editor);
   transition: all 0.3s;
 
   &:focus-within {
@@ -59,21 +60,16 @@ quill-editor {
 .ql-editor {
   min-height: var(--min-height);
 
-  & > :is(h2, h3, h4) {
-    margin-block: var(--heading-my);
+  & > *:not(:first-child) {
+    margin-block-start: 1em;
+    margin-bottom: 0;
   }
 
   & > p {
-    font-size: var(--paragraph-fs);
-    line-height: var(--paragraph-lh);
-
-    &:not(:last-child) {
-      margin-bottom: var(--paragraph-mb);
-    }
+    line-height: 1.5rem;
   }
 
   &::before {
-    font-size: var(--paragraph-fs);
     color: hsl(0 0 50%) !important;
     font-style: normal !important;
   }
