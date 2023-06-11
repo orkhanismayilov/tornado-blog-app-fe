@@ -37,14 +37,14 @@ export class SignupComponent extends AbstractAuthComponent {
   };
 
   onSubmit(): void {
-    if (this.form.invalid || this.loaderService.isLoading$.value) {
+    if (this.form.invalid || this.loaderService.isLoading) {
       return;
     }
-    this.loaderService.isLoading$.next(true);
+    this.loaderService.isLoading = true;
 
     const data: SignUpData = this.form.value;
     this.authService.signUp(data).subscribe(() => {
-      this.loaderService.isLoading$.next(false);
+      this.loaderService.isLoading = false;
       this.router.navigate(['/login']);
     });
   }

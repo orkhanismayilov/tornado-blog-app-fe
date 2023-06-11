@@ -37,7 +37,7 @@ export class PostsService {
   fetchPosts(limit: number = this.paginatorConfig.limit, page: number = 1): void {
     this.paginatorConfig = { limit, currentPage: page };
     this.postsApi.getPostsList(limit, page).subscribe((res: PostsListResponse) => {
-      this.loaderService.isLoading$.next(false);
+      this.loaderService.isLoading = false;
       this.postsSubject.next(
         res.data.map(post => ({
           ...post,
@@ -54,7 +54,7 @@ export class PostsService {
   addPost(post: Post): void {
     const data = this.prepareData(post);
     this.postsApi.addPost(data).subscribe(() => {
-      this.loaderService.isLoading$.next(false);
+      this.loaderService.isLoading = false;
       this.navigateToHome();
     });
   }
@@ -62,7 +62,7 @@ export class PostsService {
   patchPost(post: Post): void {
     const data = this.prepareData(post);
     this.postsApi.patchPost(post.id, data).subscribe(() => {
-      this.loaderService.isLoading$.next(false);
+      this.loaderService.isLoading = false;
       this.navigateToHome();
     });
   }
