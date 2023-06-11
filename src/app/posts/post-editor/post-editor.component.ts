@@ -70,7 +70,7 @@ export class PostEditorComponent implements OnInit {
     this.route.paramMap
       .pipe(
         filter(paramMap => paramMap.has('id')),
-        tap(() => this.loaderService.isLoading$.next(true)),
+        tap(() => (this.loaderService.isLoading = true)),
         switchMap(paramMap => this.postsApi.getPost(paramMap.get('id'))),
         filter(post => {
           if (post.author.id !== this.authService.userData.id) {
@@ -79,7 +79,7 @@ export class PostEditorComponent implements OnInit {
           }
           return true;
         }),
-        tap(() => this.loaderService.isLoading$.next(false)),
+        tap(() => (this.loaderService.isLoading = false)),
       )
       .subscribe(post => this.setMode(post));
   }
@@ -87,14 +87,14 @@ export class PostEditorComponent implements OnInit {
   onSubmit(): void {
     if (this.form.invalid) return;
     if (this.mode === Mode.CREATE) {
-      this.loaderService.isLoading$.next(true);
+      this.loaderService.isLoading = true;
       this.postsService.addPost(this.form.value);
     } else {
       this.editingPost = {
         ...this.editingPost,
         ...this.form.value,
       };
-      this.loaderService.isLoading$.next(true);
+      this.loaderService.isLoading = true;
       this.postsService.patchPost(this.editingPost);
     }
   }

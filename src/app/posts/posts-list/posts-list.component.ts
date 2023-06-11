@@ -35,7 +35,7 @@ export class PostsListComponent extends AbstractComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loaderService.isLoading$.next(true);
+    this.loaderService.isLoading = true;
     this.postsService.fetchPosts();
     this.posts$ = this.postsService.posts$.pipe(takeUntil(this.destroyed$));
     this.postsService.paginatorConfig$

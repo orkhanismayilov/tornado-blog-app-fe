@@ -13,7 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(err => {
-        this.loaderService.isLoading$.next(false);
+        this.loaderService.isLoading = false;
         this.snackbarService.open(err.error.message ?? 'Unknown error');
         return of(null);
       }),

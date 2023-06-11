@@ -44,7 +44,7 @@ export class PostComponent implements OnInit {
       .pipe(
         filter(paramMap => paramMap.has('id')),
         switchMap(paramMap => {
-          this.loaderService.isLoading$.next(true);
+          this.loaderService.isLoading = true;
           return this.postsApi.getPost(paramMap.get('id'), 5);
         }),
         tap(post => {
@@ -52,7 +52,7 @@ export class PostComponent implements OnInit {
           this.titleService.setTitle(`${this.post.title} - ${environment.appName}`);
           this.addTags();
 
-          this.loaderService.isLoading$.next(false);
+          this.loaderService.isLoading = false;
         }),
       )
       .subscribe();
