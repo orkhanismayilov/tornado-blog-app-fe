@@ -13,8 +13,8 @@ import { Post } from '../interfaces';
 import { fileSizeValidator, mimeTipeValidator } from '../validators';
 
 enum Mode {
-  CREATE = 'create',
-  EDIT = 'edit',
+  CREATE,
+  EDIT,
 }
 
 @Component({
@@ -86,6 +86,7 @@ export class PostEditorComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.invalid) return;
+
     if (this.mode === Mode.CREATE) {
       this.loaderService.isLoading = true;
       this.postsService.addPost(this.form.value);
