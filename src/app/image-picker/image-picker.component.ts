@@ -1,5 +1,9 @@
+import { NgIf } from '@angular/common';
 import { Component, ElementRef, forwardRef, Input, Renderer2, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { SafePipe } from '@tba/shared';
 
 @Component({
   selector: 'app-image-picker',
@@ -12,6 +16,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       multi: true,
     },
   ],
+  standalone: true,
+  imports: [NgIf, MatIconModule, MatButtonModule, SafePipe],
 })
 export class ImagePickerComponent implements ControlValueAccessor {
   @Input() postTitle: string;

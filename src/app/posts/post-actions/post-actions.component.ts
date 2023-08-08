@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { PostsService } from '@tba/services';
 import { AbstractComponent, ConfirmDialogComponent } from '@tba/shared';
 
@@ -9,6 +11,8 @@ import { filter, takeUntil, tap } from 'rxjs';
   selector: 'app-post-actions',
   templateUrl: './post-actions.component.html',
   styleUrls: ['./post-actions.component.less'],
+  standalone: true,
+  imports: [RouterLink, MatIconModule],
 })
 export class PostActionsComponent extends AbstractComponent {
   @Input({ required: true }) postId: string;

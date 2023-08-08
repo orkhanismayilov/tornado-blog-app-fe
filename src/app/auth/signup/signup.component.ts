@@ -1,5 +1,13 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterLink } from '@angular/router';
 import { FormErrors } from '@tba/shared';
 
 import { AbstractAuthComponent } from '../abstract/abstract-auth-component';
@@ -9,6 +17,19 @@ import { Fieldsets, SignUpData } from '../interfaces';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['../abstract/abstract-auth-component.less', './signup.component.less'],
+  standalone: true,
+  imports: [
+    MatCardModule,
+    RouterLink,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    NgIf,
+    MatProgressSpinnerModule,
+    AsyncPipe,
+  ],
 })
 export class SignupComponent extends AbstractAuthComponent {
   fieldsets: Fieldsets = {

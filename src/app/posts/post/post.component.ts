@@ -1,21 +1,39 @@
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PostsApiService } from '@tba/api';
 import { environment } from '@tba/env';
 import { AuthService, LoaderService } from '@tba/services';
 
+import { ShareModule } from 'ngx-sharebuttons';
 import { filter, Observable, switchMap, tap } from 'rxjs';
 
+import { SafePipe } from '../../shared/pipes/safe.pipe';
 import { Post } from '../interfaces';
 import { ExcerptPipe } from '../pipes';
+import { PostActionsComponent } from '../post-actions/post-actions.component';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.less'],
   providers: [ExcerptPipe],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    ShareModule,
+    MatIconModule,
+    PostActionsComponent,
+    RouterLink,
+    MatProgressSpinnerModule,
+    AsyncPipe,
+    DatePipe,
+    SafePipe,
+  ],
 })
 export class PostComponent implements OnInit {
   post: Post;

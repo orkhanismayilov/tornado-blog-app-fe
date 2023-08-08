@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'excerpt',
+  standalone: true,
 })
 export class ExcerptPipe implements PipeTransform {
   private firstPRegex: RegExp = /<p>(?<firstP>.*?)<\/p>/g;

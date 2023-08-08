@@ -3,6 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'postDate',
+  standalone: true,
 })
 export class PostDatePipe implements PipeTransform {
   private formatter = new Intl.RelativeTimeFormat('en-US', {
