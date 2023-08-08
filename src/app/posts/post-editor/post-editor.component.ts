@@ -1,5 +1,9 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostsApiService } from '@tba/api';
@@ -7,8 +11,11 @@ import { environment } from '@tba/env';
 import { AuthService, LoaderService, PostsService } from '@tba/services';
 import { FormErrors } from '@tba/shared';
 
+import { QuillEditorComponent } from 'ngx-quill';
 import { filter, switchMap, tap } from 'rxjs';
 
+import { ImagePickerComponent } from '../../image-picker/image-picker.component';
+import { PostTitleComponent } from '../controls/post-title/post-title.component';
 import { Post } from '../interfaces';
 import { fileSizeValidator, mimeTipeValidator } from '../validators';
 
@@ -21,6 +28,18 @@ enum Mode {
   selector: 'app-post-editor',
   templateUrl: './post-editor.component.html',
   styleUrls: ['./post-editor.component.less'],
+  standalone: true,
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+    ImagePickerComponent,
+    MatFormFieldModule,
+    PostTitleComponent,
+    QuillEditorComponent,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    AsyncPipe,
+  ],
 })
 export class PostEditorComponent implements OnInit {
   Mode = Mode;

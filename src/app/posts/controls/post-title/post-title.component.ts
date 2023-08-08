@@ -12,6 +12,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       multi: true,
     },
   ],
+  standalone: true,
 })
 export class PostTitleComponent implements ControlValueAccessor, OnInit {
   @Input('placeholder') placeholder: string = 'Title';

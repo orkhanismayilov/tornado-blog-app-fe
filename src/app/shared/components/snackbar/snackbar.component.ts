@@ -1,4 +1,5 @@
 import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { SnackbarService } from '@tba/services';
 
@@ -9,6 +10,8 @@ import { SnackbarData } from '../../interfaces';
 @Component({
   templateUrl: './snackbar.component.html',
   styleUrls: ['./snackbar.component.less'],
+  standalone: true,
+  imports: [MatIconModule],
 })
 export class SnackbarComponent implements OnInit, OnDestroy {
   private timer$: Subscription;

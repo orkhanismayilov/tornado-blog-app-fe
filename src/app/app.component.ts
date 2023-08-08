@@ -1,14 +1,18 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { AbstractComponent } from '@tba/shared';
 
 import { filter, takeUntil, tap } from 'rxjs';
 
-import { AbstractComponent } from './shared';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
+  standalone: true,
+  imports: [NgIf, RouterOutlet, HeaderComponent],
 })
 export class AppComponent extends AbstractComponent implements OnInit {
   showHeader: boolean = true;
