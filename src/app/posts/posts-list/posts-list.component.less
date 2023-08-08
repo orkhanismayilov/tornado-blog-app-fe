@@ -17,54 +17,6 @@
     box-shadow: 0 0 25px 5px #111;
   }
 
-  &__actions {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    color: #ccc;
-    background-color: fade(#333, 50%);
-    backdrop-filter: blur(5px);
-
-    li {
-      display: grid;
-      grid-template-columns: auto 0fr;
-      align-items: center;
-      padding: 0.7rem 1rem;
-      transition: all 0.3s;
-
-      &:not(:last-child) {
-        border-right: 1px solid fade(#ccc, 20%);
-      }
-
-      &:hover {
-        grid-template-columns: auto 1fr;
-        color: #fff;
-
-        mat-icon {
-          margin-right: .5rem;
-        }
-
-        span {
-          opacity: 1;
-        }
-      }
-    }
-
-    mat-icon {
-      transition: all 0.4s;
-    }
-
-    span {
-      overflow: hidden;
-      opacity: 0;
-      transition: all 0.4s;
-    }
-  }
-
   &__meta-data {
     display: flex;
     list-style: none;

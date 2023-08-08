@@ -11,6 +11,7 @@ import { ImagePickerComponent } from '../image-picker/image-picker.component';
 import { SharedModule } from '../shared/shared.module';
 import { PostTitleComponent } from './controls';
 import { ExcerptPipe, PostDatePipe } from './pipes';
+import { PostActionsComponent } from './post-actions/post-actions.component';
 import { PostEditorComponent } from './post-editor/post-editor.component';
 import { PostComponent } from './post/post.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
@@ -24,6 +25,7 @@ import { PostsListComponent } from './posts-list/posts-list.component';
     PostComponent,
     ExcerptPipe,
     PostTitleComponent,
+    PostActionsComponent,
   ],
   imports: [
     CommonModule,

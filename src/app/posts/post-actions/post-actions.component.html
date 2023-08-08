@@ -1,0 +1,10 @@
+<ul class="post__actions">
+  <li [routerLink]="['/edit', postId]">
+    <mat-icon>edit</mat-icon>
+    <span>Edit</span>
+  </li>
+  <li (click)="onDeletePost()">
+    <mat-icon>close</mat-icon>
+    <span>Delete</span>
+  </li>
+</ul>
