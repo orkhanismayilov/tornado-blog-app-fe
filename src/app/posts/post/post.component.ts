@@ -4,9 +4,9 @@ import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { PostsApiService } from '@tba/api';
 import { environment } from '@tba/env';
-import { LoaderService } from '@tba/services';
+import { AuthService, LoaderService } from '@tba/services';
 
-import { filter, switchMap, tap } from 'rxjs';
+import { filter, Observable, switchMap, tap } from 'rxjs';
 
 import { Post } from '../interfaces';
 import { ExcerptPipe } from '../pipes';
@@ -21,6 +21,13 @@ export class PostComponent implements OnInit {
   post: Post;
   socialIcons = ['facebook', 'twitter', 'telegram', 'whatsapp'];
 
+  get isAuthenticated$(): Observable<boolean> {
+    return this.authService.isAuthenticated$;
+  }
+  get userId(): string {
+    return this.authService.userData.id;
+  }
+
   constructor(
     private route: ActivatedRoute,
     private postsApi: PostsApiService,
@@ -29,6 +36,7 @@ export class PostComponent implements OnInit {
     private titleService: Title,
     private metaService: Meta,
     private excerptPipe: ExcerptPipe,
+    private authService: AuthService,
     public loaderService: LoaderService,
   ) {
     for (const icon of this.socialIcons) {

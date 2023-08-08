@@ -29,10 +29,15 @@
             </li>
           </ul>
         </div>
-        <img
-          class="mb-5"
-          [src]="post.imagePath"
-          [alt]="post.title" />
+        <div class="post__image">
+          <img
+            class="mb-5"
+            [src]="post.imagePath"
+            [alt]="post.title" />
+          <app-post-actions
+            *ngIf="(isAuthenticated$ | async) && post.author.id === userId"
+            [postId]="post.id"></app-post-actions>
+        </div>
         <div
           class="post__content"
           [innerHTML]="post.content | safe : 'html'"></div>
