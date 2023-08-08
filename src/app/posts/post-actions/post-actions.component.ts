@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PostsService } from '@tba/services';
 import { AbstractComponent, ConfirmDialogComponent } from '@tba/shared';
 
@@ -19,7 +19,7 @@ export class PostActionsComponent extends AbstractComponent {
 
   private dialogRef: MatDialogRef<ConfirmDialogComponent>;
 
-  constructor(private matDialog: MatDialog, private postsService: PostsService) {
+  constructor(private matDialog: MatDialog, private postsService: PostsService, private router: Router) {
     super();
   }
 
@@ -40,7 +40,10 @@ export class PostActionsComponent extends AbstractComponent {
       .afterClosed()
       .pipe(
         filter(Boolean),
-        tap(() => this.postsService.deletePost(this.postId)),
+        tap(() => {
+          this.postsService.deletePost(this.postId);
+          this.router.navigate(['/']);
+        }),
         takeUntil(this.destroyed$),
       )
       .subscribe();
