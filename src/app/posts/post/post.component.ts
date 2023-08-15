@@ -93,8 +93,19 @@ export class PostComponent implements OnInit {
         property: `${this.excerptPipe.transform(this.post.content, 300)}...`,
       },
       { property: 'article:published_time', content: new Date(this.post.createdAt).toISOString() },
+      { property: 'article:modified_time ', content: new Date(this.post.updatedAt).toISOString() },
       // TODO: Update when author page is implemented
       // { property: 'article:author', content: '' },
+      { property: 'og:site_name', content: environment.appName },
+      { property: 'og:title', content: this.post.title },
+      {
+        property: 'og:description',
+        content: `${this.excerptPipe.transform(this.post.content, 300)}...`,
+      },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:image', content: location.protocol + '//' + location.host + this.post.imagePath },
+      { property: 'og:image:alt', content: this.post.title },
+      { property: 'og:url', content: location.href },
     ]);
   }
 }
