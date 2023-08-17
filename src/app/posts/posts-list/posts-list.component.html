@@ -11,7 +11,7 @@
         <div
           *ngFor="let post of posts$ | async"
           class="post">
-          <mat-card [routerLink]="['/posts', post.id]">
+          <mat-card [routerLink]="['/posts', post.slug]">
             <img
               loading="lazy"
               mat-card-image
