@@ -48,7 +48,7 @@
         <div class="related__posts-list">
           <div
             *ngFor="let relatedPost of post.relatedPosts"
-            [routerLink]="['/posts', relatedPost.id]"
+            [routerLink]="['/posts', relatedPost.slug]"
             class="related__post">
             <img
               class="mb-3"
