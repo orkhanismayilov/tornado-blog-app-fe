@@ -1,4 +1,4 @@
-const host = 'https://tornado.ismayilov.pro';
+const host = 'https://tornado.ismayilov.dev';
 const apiUrl = `${host}/api`;
 
 export const environment = {

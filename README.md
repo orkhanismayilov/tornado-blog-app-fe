@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## URL
 
-https://tornado.ismayilov.pro
+https://tornado.ismayilov.dev
 
 ## Build
 
